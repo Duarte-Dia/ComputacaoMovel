@@ -4,7 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,7 +51,7 @@ private lateinit var cityViewModel:CityViewModel
 // PERGUNTAR A PROFESSORA SOBRE O VAL CITY QUE NO TUTORIAL NAO TEM O ID E AQUI REQUERE MESMO SENDO AUTO INCREMENTADO
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.getStringExtra(NewCityActivity.EXTRA_REPLY)?.let {
-                val city = City(city=it,capital = "Portugal")
+                val city = City(city =it, country = "Portugal")
                 cityViewModel.insert(city)
             }
         } else {
@@ -56,6 +60,69 @@ private lateinit var cityViewModel:CityViewModel
                 R.string.empty_not_saved,
                 Toast.LENGTH_LONG
             ).show()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.apagartudo -> {
+                cityViewModel.deleteAll()
+                true
+            }
+
+
+
+            R.id.todasCidades -> {
+
+                // recycler view
+                val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+                val adapter = CityAdapter(this)
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(this)
+
+                // view model
+                cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
+                cityViewModel.allCities.observe(this, Observer { cities ->
+                    // Update the cached copy of the words in the adapter.
+                    cities?.let { adapter.setCities(it) }
+                })
+
+
+                true
+            }
+
+            R.id.alterar -> {
+                val city = City(id = 1, city = "xxx", country = "xxx")
+                cityViewModel.updateCity(city)
+                true
+            }
+/*
+            R.id.cidadesPortugal -> {
+
+                // recycler view
+                val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+                val adapter = CityAdapter(this)
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(this)
+
+                // view model
+                cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
+                cityViewModel.getCityFromCountry("Portugal")
+                        .observe(this, Observer { cities ->cities?.let { adapter.setCities(it) }
+                        })
+
+                true
+            }
+*/
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

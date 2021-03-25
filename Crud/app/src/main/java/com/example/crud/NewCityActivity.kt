@@ -9,21 +9,25 @@ import android.widget.Button
 import android.widget.EditText
 
 class NewCityActivity : AppCompatActivity() {
-    private lateinit var editWordView: EditText
+    private lateinit var editCityView: EditText
+    private lateinit var editCapitalView: EditText
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_city)
-        editWordView = findViewById(R.id.edit_word)
+        editCityView = findViewById(R.id.edit_city)
+        editCapitalView = findViewById(R.id.edit_city)
 
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
             val replyIntent = Intent()
-            if (TextUtils.isEmpty(editWordView.text)) {
+            if (TextUtils.isEmpty(editCityView.text )&&TextUtils.isEmpty(editCapitalView.text )) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                val word = editWordView.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY, word)
+                val city = editCityView.text.toString()
+                val capital = editCapitalView.text.toString()
+                replyIntent.putExtra(EXTRA_REPLY, city)
+                replyIntent.putExtra(EXTRA_REPLY, capital)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()

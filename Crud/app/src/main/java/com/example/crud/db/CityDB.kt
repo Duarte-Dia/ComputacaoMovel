@@ -24,10 +24,14 @@ public abstract class CityDB : RoomDatabase() {
 
             // Codigo da professora comentado no video
                 //delete all content here
-                 cityDao.deleteAll()
+                // cityDao.deleteAll()
                 // Add sample words
                   var city= City(1,"Viana do castelo","portugal")
                  cityDao.insert(city)
+                 city= City(2,"Braga","portugal")
+                cityDao.insert(city)
+                 city= City(3,"Porto","portugal")
+                cityDao.insert(city)
 
             }}
 
@@ -50,8 +54,8 @@ public abstract class CityDB : RoomDatabase() {
                     context.applicationContext,
                     CityDB::class.java,
                     "Cities_database"
-                )
-                    .fallbackToDestructiveMigration()
+                )//IMPORTANTE ISTO E NECESSARIO QUANDO QUERES DAR RESET A BASE DE DADOS
+                  // .fallbackToDestructiveMigration()
                     .addCallback(WordDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance

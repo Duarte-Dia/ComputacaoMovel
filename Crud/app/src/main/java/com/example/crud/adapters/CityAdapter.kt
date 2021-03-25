@@ -26,7 +26,7 @@ class CityAdapter internal constructor(context: Context): RecyclerView.Adapter<C
     }
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
         val current = cities[position]
-        holder.cityItemView.text=current.city
+        holder.cityItemView.text=current.id.toString()+" - "+current.city+" - "+ current.country
     }
     internal fun setCities(cities: List<City>){
         this.cities=cities

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="Cidades de Portugal" app:showAsAction="never" android:id="@+id/cidadesPortugal"> </item>
+
+    <item android:title="Todas as Cidades" app:showAsAction="never" android:id="@+id/todasCidades"> </item>
+
+
+    <item android:title="Apagar Tudo" app:showAsAction="never" android:id="@+id/apagartudo"> </item>
+
+    <item android:title="Alterar" app:showAsAction="never" android:id="@+id/alterar"> </item>
+
+
+
+</menu>
