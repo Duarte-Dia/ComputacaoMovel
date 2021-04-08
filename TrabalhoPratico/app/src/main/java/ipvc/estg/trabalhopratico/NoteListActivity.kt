@@ -56,6 +56,6 @@ class NoteListActivity : AppCompatActivity() {
                 R.string.empty_not_saved,
                 Toast.LENGTH_LONG
             ).show()
-        
+
     }
 }
