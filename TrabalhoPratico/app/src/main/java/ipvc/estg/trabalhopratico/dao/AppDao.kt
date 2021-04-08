@@ -1,4 +1,4 @@
 package ipvc.estg.trabalhopratico.dao
 
-interface CityDao {
+interface AppDao {
 }
