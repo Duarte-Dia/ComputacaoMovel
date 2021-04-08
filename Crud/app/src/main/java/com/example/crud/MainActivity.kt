@@ -103,7 +103,7 @@ private lateinit var cityViewModel:CityViewModel
                 cityViewModel.updateCity(city)
                 true
             }
-/*
+
             R.id.cidadesPortugal -> {
 
                 // recycler view
@@ -114,13 +114,14 @@ private lateinit var cityViewModel:CityViewModel
 
                 // view model
                 cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
+
                 cityViewModel.getCityFromCountry("Portugal")
                         .observe(this, Observer { cities ->cities?.let { adapter.setCities(it) }
                         })
 
                 true
             }
-*/
+
 
             else -> super.onOptionsItemSelected(item)
         }

@@ -14,7 +14,7 @@ class CityRepository(private val cityDao: CityDao) {
     val allCities: LiveData<List<City>> = cityDao.getAlphabetizedCities()
 
 
-    fun getCityFromCountry(country:String):LiveData<City>{
+    fun getCityFromCountry(country:String):LiveData<List<City>>{
         return cityDao.getCityFromCountry(country)
     }
     fun getCountryFromCity(city:String):LiveData<City>{

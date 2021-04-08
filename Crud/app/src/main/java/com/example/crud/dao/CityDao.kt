@@ -13,7 +13,7 @@ interface CityDao {
     fun getAlphabetizedCities(): LiveData<List<City>>
 
     @Query("SELECT * FROM city_table WHERE country ==:country")
-    fun getCityFromCountry(country:String):LiveData<City>
+    fun getCityFromCountry(country: String): LiveData<List<City>>
 
     @Query("SELECT * FROM city_table WHERE city ==:city")
     fun getCountryFromCity(city:String):LiveData<City>
