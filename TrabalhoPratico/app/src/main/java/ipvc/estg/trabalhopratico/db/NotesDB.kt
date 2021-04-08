@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 
 @Database(entities = arrayOf(Notes::class), version = 1, exportSchema = false)
-public abstract class NotesDB {
+public abstract class NotesDB: RoomDatabase() {
 
 
     abstract fun NotesDao(): NotesDao
@@ -52,7 +52,7 @@ public abstract class NotesDB {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     NotesDB::class.java,
-                    "Cities_database"
+                    "Notes_database"
                 )//IMPORTANTE ISTO E NECESSARIO QUANDO QUERES DAR RESET A BASE DE DADOS
                     // .fallbackToDestructiveMigration()
                     .addCallback(WordDatabaseCallback(scope))

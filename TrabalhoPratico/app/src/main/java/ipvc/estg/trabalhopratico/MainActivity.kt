@@ -18,17 +18,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickLogin(view: View){
-        var intent = Intent(this,NoteListActivity::class.java)
+        var intent = Intent(this,LoginActivity::class.java)
         startActivity(intent)
     }
 
     fun onClickMap(view: View){
-        var intent = Intent(this,NoteListActivity::class.java)
+        var intent = Intent(this,MapActivity::class.java)
         startActivity(intent)
     }
 
     fun onClickDefinitions(view: View){
-        var intent = Intent(this,NoteListActivity::class.java)
+        var intent = Intent(this,SettingsActivity::class.java)
         startActivity(intent)
     }
 }

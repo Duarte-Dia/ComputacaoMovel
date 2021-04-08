@@ -11,10 +11,7 @@ interface NotesDao {
 
     @Query("SELECT * FROM note_table ORDER BY title ASC")
     fun getAllNotes(): LiveData<List<Notes>>
-/*
-    @Query("SELECT * FROM note_table WHERE description ==:description")
-    fun getCityFromCountry(description: String): LiveData<List<Notes>>
-*/
+
     @Query("SELECT * FROM note_table WHERE title ==:title")
     fun getTitleFromNotes(title:String):LiveData<Notes>
 
