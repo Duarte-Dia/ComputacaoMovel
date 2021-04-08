@@ -7,14 +7,13 @@
     tools:context=".MainActivity">
 
 
-
-
     <ImageButton
         android:id="@+id/buttonNotas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="200dp"
+        android:onClick="onClickNotas"
         app:srcCompat="@drawable/icon_notas" />
 
     <ImageButton
@@ -22,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonLogin"
-        android:layout_toRightOf="@id/buttonNotas"
         android:layout_marginTop="70dp"
-        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/buttonNotas"
+        android:onClick="onClickDefinitions"
         app:srcCompat="@drawable/icon_definitions" />
 
     <ImageButton
@@ -33,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_toRightOf="@id/buttonNotas"
+        android:onClick="onClickLogin"
         app:srcCompat="@drawable/icon_login" />
 
     <ImageButton
@@ -40,8 +40,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonNotas"
-        android:layout_marginTop="70dp"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="70dp"
+        android:layout_marginTop="70dp"
+        android:onClick="onClickMap"
         app:srcCompat="@drawable/icon_map" />
 
     <Button
