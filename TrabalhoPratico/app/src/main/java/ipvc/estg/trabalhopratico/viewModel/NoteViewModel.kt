@@ -16,12 +16,10 @@ class NoteViewModel (application: Application): AndroidViewModel(application) {
     val allNotes: LiveData<List<Notes>>
 
     init {
-
         val notesDao = NotesDB.getDatabase(application, viewModelScope).NotesDao()
         repository = NotesRepository(notesDao)
         allNotes= repository.allNotes
     }
-
 
     fun insert(notes:Notes) = viewModelScope.launch {
         repository.insert(notes)
@@ -30,10 +28,6 @@ class NoteViewModel (application: Application): AndroidViewModel(application) {
 
     fun deleteByTittle(city: String )= viewModelScope.launch(Dispatchers.IO){
         repository.deleteByTittle(city)
-    }
-
-    fun getCountryFromCity(title: String): LiveData<Notes> {
-        return repository.getCountryFromCity(title)
     }
 
     fun updateCity(notes:Notes)= viewModelScope.launch(Dispatchers.IO){
