@@ -27,9 +27,9 @@ class NoteListActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = NotesAdapter(this)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)// Add an observer on the LiveData returned by getAlphabetizedWords.
-        // The onChanged() method fires when the observed data changes and the activity is
-        // in the foreground.
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+
         noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         noteViewModel.allNotes.observe(this) { notes->notes?.let{adapter.setNotes(it)}
         }
@@ -43,19 +43,19 @@ class NoteListActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-/*
+// aqui ele deteta se recebeu o intent do criar nota , caso crie ele adiciona as notas
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.getStringExtra(newNoteActivity.EXTRA_REPLY)?.let {
-                val note = Notes(title =it, description = "Portugal")
+                val note = Notes(title =it, description = it)
                 noteViewModel.insert(note)
             }
         } else {
-            */
+// caso nao detete qualquer texto devolve um toast a dizer que estava vazia
             Toast.makeText(
                 applicationContext,
                 R.string.empty_not_saved,
                 Toast.LENGTH_LONG
             ).show()
-
+}
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectedNoteActivity">
+
+
+    <TextView
+        android:id="@+id/textViewSelectedNoteTittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/min_height"
+        android:layout_centerHorizontal="true"
+       android:textSize="@dimen/big_padding"
+        android:text="TextView" />
+
+
+    <TextView
+        android:id="@+id/textViewSelectedNoteDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/big_padding"
+        android:layout_marginTop="180dp"
+        android:text="TextView" />
+
+
+
+    <Button
+        android:id="@+id/buttonDeleteNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:layout_marginLeft="230dp"
+        android:layout_marginTop="80dp"
+        android:layout_below="@id/textViewSelectedNoteDescription"
+        android:text="Delete Note" />
+
+    <Button
+        android:id="@+id/buttonEditNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="80dp"
+        android:layout_below="@id/textViewSelectedNoteDescription"
+        android:text="Edit Note" />
+
+
+</RelativeLayout>
