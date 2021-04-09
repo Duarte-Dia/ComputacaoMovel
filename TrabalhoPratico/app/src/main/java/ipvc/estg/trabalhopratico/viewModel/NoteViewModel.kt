@@ -15,10 +15,6 @@ class NoteViewModel (application: Application): AndroidViewModel(application) {
     private val repository: NotesRepository
     val allNotes: LiveData<List<Notes>>
 
-    /**
-     * Launching a new coroutine to insert the data in a non-blocking way
-     */
-
     init {
 
         val notesDao = NotesDB.getDatabase(application, viewModelScope).NotesDao()
