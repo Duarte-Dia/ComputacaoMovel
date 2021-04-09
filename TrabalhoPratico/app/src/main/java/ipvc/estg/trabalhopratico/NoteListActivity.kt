@@ -61,7 +61,12 @@ class NoteListActivity : AppCompatActivity(),NotesAdapter.OnItemClickListener {
 }
     }
 
-    override fun onItemClick(position: Int) {
-        Toast.makeText( this,"Item $position has been click. ", Toast.LENGTH_SHORT).show()
+    override fun onItemClick(id:Int?,title: String,description:String) {
+        Toast.makeText( this,"$title has been click. ", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, SelectedNoteActivity::class.java)
+        startActivityForResult(intent, newWordActivityRequestCode)
+        intent.putExtra("id",id)
+        intent.putExtra("title",title)
+        intent.putExtra("description",description)
     }
 }

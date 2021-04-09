@@ -31,13 +31,16 @@ class NotesAdapter internal constructor(
         override fun onClick(v: View?) {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(position)
+                val current = notes[position]
+                listener.onItemClick(current.id,current.title, current.description)
             }
         }
     }
-
+// esta interface e a maneira como cominamos com a activity principal
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
+    // todos estes parametros sao os parametros enviados para a actividade principal
+        fun onItemClick(id:Int?,title: String,description:String)
+
     }
 
 
@@ -49,7 +52,7 @@ class NotesAdapter internal constructor(
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         val current = notes[position]
         holder.notesItemView.text =
-            current.id.toString() + " - " + current.title + " - " + current.description
+            current.title + " - "
     }
 
     internal fun setNotes(notes: List<Notes>) {
