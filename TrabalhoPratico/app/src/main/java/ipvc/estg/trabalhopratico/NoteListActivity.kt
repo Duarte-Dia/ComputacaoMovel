@@ -14,7 +14,7 @@ import ipvc.estg.trabalhopratico.adapter.NotesAdapter
 import ipvc.estg.trabalhopratico.entities.Notes
 import ipvc.estg.trabalhopratico.viewModel.NoteViewModel
 
-class NoteListActivity : AppCompatActivity() {
+class NoteListActivity : AppCompatActivity(),NotesAdapter.OnItemClickListener {
     private lateinit var noteViewModel: NoteViewModel
     private val newWordActivityRequestCode =1
 
@@ -25,7 +25,7 @@ class NoteListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_note_list)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = NotesAdapter(this)
+        val adapter = NotesAdapter(this,this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -40,6 +40,8 @@ class NoteListActivity : AppCompatActivity() {
             startActivityForResult(intent, newWordActivityRequestCode)
         }
     }
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -57,5 +59,9 @@ class NoteListActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
 }
+    }
+
+    override fun onItemClick(position: Int) {
+        Toast.makeText( this,"Item $position has been click. ", Toast.LENGTH_SHORT).show()
     }
 }
