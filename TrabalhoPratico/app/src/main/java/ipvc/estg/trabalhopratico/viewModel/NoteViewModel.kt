@@ -30,9 +30,12 @@ class NoteViewModel (application: Application): AndroidViewModel(application) {
         repository.deleteByTittle(city)
     }
 
-    fun updateCity(notes:Notes)= viewModelScope.launch(Dispatchers.IO){
+    fun updateNote(notes:Notes)= viewModelScope.launch(Dispatchers.IO){
         repository.updateNote(notes)
     }
+
+    fun updateNoteFromId(id:Int, title: String,description: String)=viewModelScope.launch(Dispatchers.IO){
+        repository.updateNoteFromId(id,title,description)}
 
     fun updateDescriptionFromTitle(title: String,description: String)=viewModelScope.launch(Dispatchers.IO){
         repository.updateDescriptionFromTitle(title,description)}

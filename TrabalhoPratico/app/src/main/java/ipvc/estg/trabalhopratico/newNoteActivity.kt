@@ -23,6 +23,7 @@ class newNoteActivity : AppCompatActivity() {
         button.setOnClickListener {
             val replyIntent = Intent()
             if (TextUtils.isEmpty(editTitleView.text )&& TextUtils.isEmpty(editDescriptionView.text )) {
+                // isto vai fazer com que o resultado seja =0 logo nao guardou nada
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
                 val title = editTitleView.text.toString()

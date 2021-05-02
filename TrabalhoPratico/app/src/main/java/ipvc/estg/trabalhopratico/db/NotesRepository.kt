@@ -30,6 +30,9 @@ class NotesRepository(private val notesDao: NotesDao) {
     suspend fun updateNote(title: Notes) {
         notesDao.updateNote(title)
     }
+    suspend fun updateNoteFromId(id:Int,title: String, description: String) {
+        notesDao.updateNoteFromId(id,title,description)
+    }
 
     suspend fun updateDescriptionFromTitle(title: String, description: String) {
         notesDao.updateDescriptionFromTitle(title,description)
