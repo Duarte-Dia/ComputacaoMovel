@@ -29,7 +29,7 @@ class newNoteActivity : AppCompatActivity() {
                 val title = editTitleView.text.toString()
                 val description = editDescriptionView.text.toString()
                 replyIntent.putExtra(EXTRA_REPLY, title)
-                replyIntent.putExtra(EXTRA_REPLY, description)
+                replyIntent.putExtra("description", description)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()

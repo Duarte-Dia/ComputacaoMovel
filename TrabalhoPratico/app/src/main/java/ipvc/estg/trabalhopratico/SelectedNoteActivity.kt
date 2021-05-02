@@ -6,11 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 
 class SelectedNoteActivity : AppCompatActivity() {
     private lateinit var TitleView: TextView
     private lateinit var DescriptionView: TextView
-    private val editNoteActivityRequestCode=2
+   
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,20 +20,24 @@ class SelectedNoteActivity : AppCompatActivity() {
         TitleView = findViewById(R.id.editTextViewSelectedNoteTittle)
         DescriptionView= findViewById(R.id.editTextViewSelectedNoteDescription)
 
+        var ogTitle= intent.getStringExtra("title")
+        var ogDesc = intent.getStringExtra("description")
         //TENS DE CRIAR O ACESSO E A MUDANSA DO SELECT NOTE PARA DEPOIS EDITARES E APAGARES
 // utilizar a actividade de criar notas para alterar a nota toda
 
-        TitleView.text= intent.getStringExtra("title")
-        DescriptionView.text= intent.getStringExtra("description")
-
+        TitleView.text= ogTitle
+        DescriptionView.text=ogDesc
 
         val buttonEdit = findViewById<Button>(R.id.buttonEditNote)
         buttonEdit.setOnClickListener {
+            /*
             val intent = Intent(this, newNoteActivity::class.java)
             startActivityForResult(intent, editNoteActivityRequestCode)
             intent.putExtra("id",intent.getStringExtra("id"))
             intent.putExtra("title",intent.getStringExtra("title"))
             intent.putExtra("description",intent.getStringExtra("description"))
+            */
+            Toast.makeText( this,"$ogTitle has been click. ", Toast.LENGTH_SHORT).show()
         }
 
         val buttonDelete = findViewById<Button>(R.id.buttonDeleteNote)

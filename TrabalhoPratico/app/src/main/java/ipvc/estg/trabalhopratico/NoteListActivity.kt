@@ -48,9 +48,13 @@ class NoteListActivity : AppCompatActivity(),NotesAdapter.OnItemClickListener {
         super.onActivityResult(requestCode, resultCode, data)
 // aqui ele deteta se recebeu o intent do criar nota , caso crie ele adiciona as notas
         if (requestCode == newNoteActivityRequestCode && resultCode == Activity.RESULT_OK) {
+
             data?.getStringExtra(newNoteActivity.EXTRA_REPLY)?.let {
-                val note = Notes(title =it, description = it)
-                noteViewModel.insert(note)
+             var d= data.getStringExtra("description")
+                // NOTA POR ALGUM MOTIVO AO CRIAR AS NOTAS ELE ESTA A TROCAR A DESCRICAO PELO TITUTLO
+                if(d!=null){
+                val note = Notes(title =it, description =d )
+                noteViewModel.insert(note)}
             }
         } else if (requestCode == newNoteActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
 // caso nao detete qualquer texto devolve um toast a dizer que estava vazia
@@ -76,11 +80,12 @@ class NoteListActivity : AppCompatActivity(),NotesAdapter.OnItemClickListener {
         // simples toast para saber se esta a registar o on click corretamente
         Toast.makeText( this,"$title has been click. ", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, SelectedNoteActivity::class.java)
-        // aqui comeca a atividade selectedNote com o codigo = 2
-        startActivityForResult(intent, editNoteActivityRequestCode)
         intent.putExtra("id",id)
         intent.putExtra("title",title)
         intent.putExtra("description",description)
+
+        // aqui comeca a atividade selectedNote com o codigo = 2
+        startActivityForResult(intent, editNoteActivityRequestCode)
 
     }
 }
