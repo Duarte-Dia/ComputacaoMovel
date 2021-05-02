@@ -63,13 +63,35 @@ class NoteListActivity : AppCompatActivity(),NotesAdapter.OnItemClickListener {
                 R.string.empty_not_saved,
                 Toast.LENGTH_LONG
             ).show()
+            // aqui deteta se o reply vem da atividade de editar/ apagar
         } else if(requestCode == editNoteActivityRequestCode && resultCode == Activity.RESULT_OK){
+            // primeiro verifica se e para a pagar a nota
                 if(data?.getStringExtra("delete") =="1"){
                     var title= data?.getStringExtra("title")
                     if (title != null) {
                         noteViewModel.deleteByTittle(title)
                     }
                     Toast.makeText( this,"Note $title has been deleted ", Toast.LENGTH_SHORT).show()
+                    // caso contrario vai verificar o que e para editar
+                } else{
+                    // edit =0 e porque o titulo e igual mas a descricao foi alterada
+                    if(data?.getStringExtra("edit") =="0"){
+                        var t =  data?.getStringExtra("title")
+                        var d =  data?.getStringExtra("description")
+                        if(t!=null && d!=null){
+                            noteViewModel.updateDescriptionFromTitle(t,d)
+                        }
+                        // edit =1 e porque o titulo foi alterado
+                    } else if (data?.getStringExtra("edit") =="1"){
+                        var idN =  data?.getIntExtra("id",0)
+
+                        var t =  data?.getStringExtra("title")
+                        var d =  data?.getStringExtra("description")
+                        if(t!=null && d!=null&& idN!=null&& idN!=0){
+                            noteViewModel.updateNoteFromId(idN,t,d)
+                            Toast.makeText( this,"$idN has been edited. ", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
 
             }

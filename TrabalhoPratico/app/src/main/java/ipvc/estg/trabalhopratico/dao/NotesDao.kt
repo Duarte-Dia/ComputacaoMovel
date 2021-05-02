@@ -30,7 +30,7 @@ interface NotesDao {
     @Query("UPDATE note_table SET description=:description WHERE title ==:title")
     suspend fun updateDescriptionFromTitle(title: String,description: String)
 
-    @Query("UPDATE note_table SET description=:description AND title=:title WHERE id ==:id")
+    @Query("UPDATE note_table SET description=:description , title=:title WHERE id ==:id")
     suspend fun updateNoteFromId(id:Int,title: String,description: String)
 
 
