@@ -22,8 +22,7 @@ class SelectedNoteActivity : AppCompatActivity() {
         //TENS DE CRIAR O ACESSO E A MUDANSA DO SELECT NOTE PARA DEPOIS EDITARES E APAGARES
 // utilizar a actividade de criar notas para alterar a nota toda
 
-
-        TitleView.setText(intent.getStringExtra("title"))
+        TitleView.text= intent.getStringExtra("title")
         DescriptionView.text= intent.getStringExtra("description")
 
 
