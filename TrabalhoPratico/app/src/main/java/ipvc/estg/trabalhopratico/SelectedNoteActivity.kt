@@ -34,26 +34,13 @@ class SelectedNoteActivity : AppCompatActivity() {
             val d = DescriptionView.text.toString()
             val replyIntent = Intent()
             replyIntent.putExtra("delete", "0")
-            // fazer um check para verificar se o titulo foi alterado
-            if (TitleView.text == ogTitle) {
-                // introduzir no intent uma var edit para ser mais simples verificar noutra atividade qual das querys e necessario utilizar
-                // netes caso edit=0 e pk o titulo e igual
-                replyIntent.putExtra("edit","0")
-                replyIntent.putExtra("title",ogTitle)
-                replyIntent.putExtra("description", d)
-                setResult(Activity.RESULT_OK, replyIntent)
-                Toast.makeText( this,"$ogTitle has been edited. ", Toast.LENGTH_SHORT).show()
-            } else {
-                // edit =1 e porque o titulo tambem foi editado
-                // como tal tambem temos de mandar o id
-                replyIntent.putExtra("edit","1")
-                replyIntent.putExtra("id", id)
-                replyIntent.putExtra("title", title)
-                replyIntent.putExtra("description", d)
-                setResult(Activity.RESULT_OK, replyIntent)
 
+            replyIntent.putExtra("edit", "1")
+            replyIntent.putExtra("id", id)
+            replyIntent.putExtra("title", title)
+            replyIntent.putExtra("description", d)
+            setResult(Activity.RESULT_OK, replyIntent)
 
-            }
 
             finish()
             // Toast.makeText( this,"$ogTitle has been click. ", Toast.LENGTH_SHORT).show()
