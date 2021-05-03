@@ -23,7 +23,7 @@ class SelectedNoteActivity : AppCompatActivity() {
         var ogTitle = intent.getStringExtra("title")
         var ogDesc = intent.getStringExtra("description")
         //TENS DE CRIAR O ACESSO E A MUDANSA DO SELECT NOTE PARA DEPOIS EDITARES E APAGARES
-// utilizar a actividade de criar notas para alterar a nota toda
+// utilizar a actividade de criar notas para alterar a nota toda???
 
         TitleView.text = ogTitle
         DescriptionView.text = ogDesc
