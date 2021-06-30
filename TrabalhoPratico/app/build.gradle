@@ -44,7 +44,7 @@ dependencies {
 
     // Room components
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
-    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
@@ -70,4 +70,7 @@ dependencies {
     })
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
 
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 }
