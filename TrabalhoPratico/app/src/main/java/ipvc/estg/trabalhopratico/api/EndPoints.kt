@@ -12,7 +12,10 @@ interface EndPoints {
     fun getUserById(@Path("id") id: Int): Call<User>
 
 
-
+    @GET("/myslim/api/notas")
+    fun getNotas(): Call<List<Notas>>
+    @GET("/myslim/api/notas/{id}")
+    fun getNotasById(@Path("id") id: Int): Call<Notas>
 /*
     @FormUrlEncoded
     @POST("post")
