@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickMap(view: View){
-        var intent = Intent(this,MapActivity::class.java)
+        var intent = Intent(this,MapsActivity::class.java)
         startActivity(intent)
     }
 
