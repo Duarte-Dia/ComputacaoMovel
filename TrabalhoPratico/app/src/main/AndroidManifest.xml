@@ -40,7 +40,6 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MapActivity" />
         <activity android:name=".NoteListActivity" />
         <activity android:name=".newNoteActivity" />
         <activity android:name=".MainActivity">
