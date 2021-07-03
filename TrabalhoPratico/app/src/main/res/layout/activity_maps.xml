@@ -4,26 +4,66 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/purple_200"
+
+    >
 
 
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="600dp"
+        android:layout_marginTop="130dp"
         tools:context=".MapsActivity" />
 
-    <TextView
-        android:id="@+id/textViewMapsCoordenadas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="@color/purple_500"
-        android:padding="10dp"
-        android:layout_weight="0.5"
 
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/textViewMapsCoordenadas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@color/purple_500"
+            android:padding="10dp"
+            android:layout_alignTop="@id/map"
+            android:layout_marginTop="-120dp"
+            android:layout_alignLeft="@id/map"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textViewMapsDistancia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@id/map"
+            android:layout_marginTop="-120dp"
+            android:layout_alignRight="@id/map"
+            android:background="@color/purple_500"
+            android:padding="10dp"
+            android:text="TextView" />
+
+
+        <Button
+            android:id="@+id/buttonFiltrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/map"
+            android:layout_marginTop="-50dp"
+            android:layout_alignRight="@id/map"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/buttonReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/map"
+            android:layout_marginTop="-50dp"
+            android:text="Button" />
+
+
+
+
 
 
 </RelativeLayout>

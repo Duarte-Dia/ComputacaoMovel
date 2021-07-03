@@ -3,7 +3,7 @@
     <string name="hint_word">Title</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Note not saved because it is empty.</string>
-    <string name="add_note">Add note</string>
+    <string name="add_note">Add Note</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
@@ -12,14 +12,16 @@
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <string name="reply_title" translatable="false">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    <string name="sync_title" translatable="false">Sync email periodically</string>
+    <string name="attachment_title" translatable="false">Download incoming attachments</string>
+    <string name="attachment_summary_on" translatable="false">Automatically download attachments for incoming emails
     </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="attachment_summary_off" translatable="false">Only download attachments when manually requested</string>
     <string name="title_activity_maps">Map</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="delete_note">Delete Note</string>
 
 </resources>
