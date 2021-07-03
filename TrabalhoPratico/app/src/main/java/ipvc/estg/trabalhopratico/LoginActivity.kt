@@ -1,6 +1,8 @@
 package ipvc.estg.trabalhopratico
 
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
@@ -21,35 +23,28 @@ import java.net.InetAddress
 
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var shared_preferences: SharedPreferences
+    private var loggedIn = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getUsers()
-        var recyclerView = findViewById<RecyclerView>(R.id.recyclerview_problema)
-        Toast.makeText(this@LoginActivity,"Will it work ?? ", Toast.LENGTH_LONG).show()
-        call.enqueue(object : Callback<List<User>>{
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>){
-                if (response.isSuccessful){
-                    Toast.makeText(this@LoginActivity,"WE DID IT ", Toast.LENGTH_LONG).show()
-                    Log.i("TESTESITE","tivemos sucesso")
-                    recyclerView.apply {
-                        setHasFixedSize(true)
-                        layoutManager = LinearLayoutManager(this@LoginActivity)
-                        adapter = UserAdapter(response.body()!!)
-                    }
+        shared_preferences = getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
 
-                }
-            }
-            override fun onFailure(call: Call<List<User>>, t: Throwable){
-                Toast.makeText(this@LoginActivity,"${t.message}", Toast.LENGTH_LONG).show()
-                Log.i("TESTESITE","fodeu")
-            }
-        })
-    }
+        loggedIn = shared_preferences.getBoolean("loggedIn",false)
+
+        if(loggedIn){
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent);
+            finish()
+        }
 
     }
+
+}
 
 
 

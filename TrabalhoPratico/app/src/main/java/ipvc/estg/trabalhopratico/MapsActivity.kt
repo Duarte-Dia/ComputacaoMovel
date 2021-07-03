@@ -13,15 +13,22 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import ipvc.estg.trabalhopratico.api.EndPoints
+import ipvc.estg.trabalhopratico.api.Notas
+import ipvc.estg.trabalhopratico.api.ServiceBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var lastLocation: Location
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
+    private lateinit var notas: List<Notas>
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
 
@@ -38,8 +45,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (p0 != null) {
                     lastLocation =p0.lastLocation
                     var loc = LatLng(lastLocation.latitude,lastLocation.longitude)
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,15.0f))
-                   // findViewById<TextView>(R.id.tx)
+                  //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,15.0f))
+                    findViewById<TextView>(R.id.textViewMapsCoordenadas).setText("Lat: "+ loc.latitude + " - Long: "+ loc.longitude)
                 }
             }
         }
@@ -51,6 +58,41 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+
+
+        val request = ServiceBuilder.buildService(EndPoints::class.java)
+        val call = request.getNotas()
+        var position: LatLng
+
+        call.enqueue(object : Callback<List<Notas>> {
+            override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>){
+                if (response.isSuccessful){
+                    Toast.makeText(this@MapsActivity,"Loading notes", Toast.LENGTH_LONG).show()
+                    notas = response.body()!!
+                    for (nota in notas){
+                        position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
+                      //  if(nota.utilizador_id == utilizador_id){
+                            mMap.addMarker(MarkerOptions().position(position).title(nota.id.toString()).snippet(nota.title + "-" +"lat "+ nota.latitude + " long "+ nota.longitude))
+                           //     .setIcon(
+                                 //   BitmapDescriptorFactory.defaultMarker(
+                                    //    BitmapDescriptorFactory.HUE_GREEN))
+                     //   }else{
+                           // mMap.addMarker(MarkerOptions().position(position).title(nota.id.toString()).snippet(nota.tipo + "-" + nota.descricao))
+                       // }
+
+                    }
+                }
+            }
+            override fun onFailure(call: Call<List<Notas>>, t: Throwable){
+                Toast.makeText(this@MapsActivity,"${t.message}", Toast.LENGTH_LONG).show()
+            }
+        })
+
+
+
+
+
 
 
 

@@ -14,6 +14,16 @@
         android:layout_height="match_parent"
         tools:context=".MapsActivity" />
 
+    <TextView
+        android:id="@+id/textViewMapsCoordenadas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/purple_500"
+        android:padding="10dp"
+        android:layout_weight="0.5"
+
+        android:text="TextView" />
 
 
 </RelativeLayout>
