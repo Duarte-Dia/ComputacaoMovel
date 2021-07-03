@@ -1,11 +1,13 @@
 package ipvc.estg.trabalhopratico
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
@@ -42,6 +44,13 @@ class LoginActivity : AppCompatActivity() {
 
         if (loggedIn) {
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent);
+            finish()
+        }
+
+        val buttonRegistar = findViewById<Button>(R.id.button_registar)
+        buttonRegistar.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent);
             finish()
         }
@@ -94,6 +103,8 @@ class LoginActivity : AppCompatActivity() {
             })
         }
     }
+
+
 
 }
 

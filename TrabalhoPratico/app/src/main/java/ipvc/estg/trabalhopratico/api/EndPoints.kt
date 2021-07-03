@@ -22,15 +22,12 @@ interface EndPoints {
     @POST("/myslim/api/users_login")
     fun login(@Field("username") username: String?, @Field("password") password: String?): Call<OutputLogin>
 
-    //NMOTA QUE A CLASS DO CALL PODE ESTAR ERRADA
+
     @FormUrlEncoded
-    @POST("/smartcity/api/problema_post")
-    fun reportar(@Field("latitude") latitude: String?,
-                 @Field("longitude") longitude: String?,
-                 @Field("tipo") tipo: String?,
-                 @Field("descricao") descricao: String?,
-                 @Field("imagem") imagem: String?,
-                 @Field("utilizador_id") utilizador_id: Int?): Call<OutputPost>
+    @POST("/myslim/api/users_register")
+    fun registar(@Field("username") username: String?,
+                 @Field("password") password: String?,
+                 @Field("email") email: String?): Call<OutputLogin>
 
 
 //NMOTA QUE A CLASS DO CALL PODE ESTAR ERRADA

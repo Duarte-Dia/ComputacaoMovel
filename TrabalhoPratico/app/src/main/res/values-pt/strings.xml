@@ -18,4 +18,6 @@
     <string name="Register">Registar</string>
     <string name="login_Error">Credenciais invalidas</string>
     <string name="EmptyFields">Campos vazios. por favor encha os com o seu nome de utilizador e password</string>
+    <string name="welcome">Bem vindo !</string>
+    <string name="Register_Success">Registado com sucesso</string>
 </resources>
