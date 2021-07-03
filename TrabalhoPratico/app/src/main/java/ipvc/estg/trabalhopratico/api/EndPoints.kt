@@ -25,9 +25,7 @@ interface EndPoints {
 
     @FormUrlEncoded
     @POST("/myslim/api/users_register")
-    fun registar(@Field("username") username: String?,
-                 @Field("password") password: String?,
-                 @Field("email") email: String?): Call<OutputLogin>
+    fun registar(@Field("username") username: String?, @Field("password") password: String?, @Field("email") email: String?): Call<OutputLogin>
 
 
 //NMOTA QUE A CLASS DO CALL PODE ESTAR ERRADA

@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
         buttonRegistar.setOnClickListener {
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent);
-            finish()
+
         }
 
     }
@@ -86,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
                             shared_preferences_edit.putString("username", username)
                             shared_preferences_edit.putString("password", password)
                             shared_preferences_edit.putInt("id", c.id)
-                            shared_preferences_edit.putBoolean("remeber", checked_remember)
+                            shared_preferences_edit.putBoolean("loggedIn", checked_remember)
                             shared_preferences_edit.apply()
 
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
