@@ -1,5 +1,7 @@
 package ipvc.estg.trabalhopratico
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
@@ -33,12 +35,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationCallback: LocationCallback
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
-
+    private lateinit var shared_preferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
+        shared_preferences = getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
         locationCallback= object : LocationCallback(){
             override fun onLocationResult(p0: LocationResult?) {
                 super.onLocationResult(p0)
@@ -64,7 +66,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getNotas()
         var position: LatLng
-
+        val id_user = shared_preferences.getInt("id", 0)
         call.enqueue(object : Callback<List<Notas>> {
             override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>){
                 if (response.isSuccessful){
@@ -72,14 +74,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     notas = response.body()!!
                     for (nota in notas){
                         position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
-                      //  if(nota.utilizador_id == utilizador_id){
+                       if(nota.utilizador_id == id_user){
                             mMap.addMarker(MarkerOptions().position(position).title(nota.id.toString()).snippet(nota.title + "-" +"lat "+ nota.latitude + " long "+ nota.longitude))
-                           //     .setIcon(
-                                 //   BitmapDescriptorFactory.defaultMarker(
-                                    //    BitmapDescriptorFactory.HUE_GREEN))
-                     //   }else{
-                           // mMap.addMarker(MarkerOptions().position(position).title(nota.id.toString()).snippet(nota.tipo + "-" + nota.descricao))
-                       // }
+                                .setIcon(
+                                    BitmapDescriptorFactory.defaultMarker(
+                                        BitmapDescriptorFactory.HUE_GREEN))
+                      }else{
+                            mMap.addMarker(MarkerOptions().position(position).title(nota.id.toString()).snippet(nota.title + "-" + nota.description))
+                        }
 
                     }
                 }
@@ -191,5 +193,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         startLocationUpdates()
     }
 
+    private fun calculateDistance(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Float {
+
+        val results = FloatArray(1);
+        Location.distanceBetween(lat1,lng1,lat2,lng2,results)
+
+        return results[0];
+    }
 
 }
