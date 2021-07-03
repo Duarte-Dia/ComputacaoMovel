@@ -12,4 +12,10 @@
     <string name="empty_not_saved">Nota nao foi gravada porque estava vazia</string>
     <string name="hint_word">Titulo</string>
     <string name="delete_note">Apagar Nota</string>
+    <string name="username">Nome de Utilizador</string>
+    <string name="Loggedin">Mantar Sessão Iniciada</string>
+    <string name="Login">Entrar</string>
+    <string name="Register">Registar</string>
+    <string name="login_Error">Credenciais invalidas</string>
+    <string name="EmptyFields">Campos vazios. por favor encha os com o seu nome de utilizador e password</string>
 </resources>

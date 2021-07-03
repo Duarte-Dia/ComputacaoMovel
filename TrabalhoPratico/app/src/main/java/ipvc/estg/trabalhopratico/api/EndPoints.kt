@@ -19,7 +19,7 @@ interface EndPoints {
     fun getNotasById(@Path("id") id: Int): Call<Notas>
 
     @FormUrlEncoded
-    @POST("/myslim/api/users")
+    @POST("/myslim/api/users_login")
     fun login(@Field("username") username: String?, @Field("password") password: String?): Call<OutputLogin>
 
     //NMOTA QUE A CLASS DO CALL PODE ESTAR ERRADA

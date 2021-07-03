@@ -23,5 +23,12 @@
     <string name="title_activity_maps">Map</string>
     <string name="edit_note">Edit Note</string>
     <string name="delete_note">Delete Note</string>
+    <string name="username">Username</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="Loggedin">Remain Logged in</string>
+    <string name="Login">Login</string>
+    <string name="Register">Register</string>
+    <string name="login_Error">Invalid Credentials</string>
+    <string name="EmptyFields">Empty Fields. Please fill them with your username and password</string>
 
 </resources>

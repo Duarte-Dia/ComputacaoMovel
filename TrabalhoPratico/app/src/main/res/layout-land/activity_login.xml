@@ -4,55 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:orientation="vertical">
 
 
 
-    <LinearLayout
-        android:id="@+id/linear"
+    <EditText
+        android:id="@+id/usernameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:layout_margin="16dp"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/username"
+        android:inputType="textAutoComplete"
+        android:minHeight="16dp"
+        android:textSize="18sp" />
 
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:minHeight="16dp"
+        android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:fontFamily="sans-serif-light"
-            android:hint="Username"
-            android:inputType="textAutoComplete"
-            android:minHeight="16dp"
-            android:textSize="18sp" />
+    <CheckBox
+        android:id="@+id/checkBox_LoggedIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/Loggedin" />
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:fontFamily="sans-serif-light"
-            android:hint="password"
-            android:inputType="textPassword"
-            android:minHeight="16dp"
-            android:textSize="18sp" />
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/Login"
+        android:onClick="login"
 
-        <CheckBox
-            android:id="@+id/checkBox_Remeber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="remember" />
+        />
 
-        <Button
-            android:id="@+id/button_start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Login"
-             />
-    </LinearLayout>
+    <Button
+        android:id="@+id/button_registar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/Register"
+        />
+
 
 
 </LinearLayout>
