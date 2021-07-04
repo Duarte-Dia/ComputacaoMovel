@@ -34,8 +34,8 @@ interface EndPoints {
     fun inserirNota(
                @Field("title") title: String?,
                @Field("description") description: String?,
-               @Field("latitude") latitude: String?,
-               @Field("longitude") longitude: String?,
+               @Field("latitude") latitude: Float?,
+               @Field("longitude") longitude: Float?,
                @Field("id_utilizador") id_utilizador: Int?): Call<Notas>
 
 

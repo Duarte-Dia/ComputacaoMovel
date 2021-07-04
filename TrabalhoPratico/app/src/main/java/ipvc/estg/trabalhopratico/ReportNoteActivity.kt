@@ -83,11 +83,12 @@ class ReportNoteActivity : AppCompatActivity() {
             val id_utilizador = shared_preferences.getInt("id", 0)
 
             val call = request.inserirNota(
+                id_utilizador = id_utilizador,
                 title = title,
                 description = description,
-                latitude = latitude.toString(),
-                longitude = longitude.toString(),
-                id_utilizador = id_utilizador
+                latitude = latitude.toFloat(),
+                longitude = longitude.toFloat()
+
             )
 
             call.enqueue(object : Callback<Notas> {
