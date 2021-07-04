@@ -7,16 +7,17 @@
     tools:context=".MainActivity">
 
 
-    <ImageButton
+    <Button
         android:id="@+id/buttonNotas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="200dp"
         android:onClick="onClickNotas"
-        app:srcCompat="@drawable/icon_notas" />
+        android:text="@string/PersonalNotes"
+ />
 
-    <ImageButton
+    <Button
         android:id="@+id/buttonDefinitions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,18 +25,20 @@
         android:layout_marginTop="70dp"
         android:layout_toRightOf="@id/buttonNotas"
         android:onClick="onClickDefinitions"
-        app:srcCompat="@drawable/icon_definitions" />
+        android:text="@string/Settings"
+ />
 
-    <ImageButton
+    <Button
         android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_toRightOf="@id/buttonNotas"
         android:onClick="onClickLogin"
-        app:srcCompat="@drawable/icon_login" />
+        android:text="@string/Logout"
+/>
 
-    <ImageButton
+    <Button
         android:id="@+id/buttonMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,14 +46,10 @@
         android:layout_marginLeft="70dp"
         android:layout_marginTop="70dp"
         android:onClick="onClickMap"
-        app:srcCompat="@drawable/icon_map" />
+        android:text="@string/title_activity_maps"
+ />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/icon_notas"
-        app:backgroundTint="@color/cardview_shadow_end_color" />
+
 
 
 

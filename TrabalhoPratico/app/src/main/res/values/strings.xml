@@ -35,5 +35,13 @@
     <string name="prompt_password" translatable="false">Password</string>
     <string name="welcome">"Welcome !"</string>
     <string name="Register_Success">Registration successful</string>
+    <string name="filter">Filter</string>
+    <string name="reset" translatable="false">Reset</string>
+    <string name="PersonalNotes">Personal Notes</string>
+    <string name="Settings">Settings</string>
+    <string name="Logout">Logout</string>
+    <string name="Edit_error">You cannot edit that note</string>
+    <string name="Edit_note">Edit Note</string>
+    <string name="Delete_note">Delete Note</string>
 
 </resources>

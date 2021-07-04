@@ -16,7 +16,7 @@ interface EndPoints {
     fun getNotas(): Call<List<Notas>>
 
     @GET("/myslim/api/notas/{id}")
-    fun getNotasById(@Path("id") id: Int): Call<Notas>
+    fun getNotasById(@Path("id") id: Int): Call<List<Notas>>
 
     @FormUrlEncoded
     @POST("/myslim/api/users_login")
@@ -40,18 +40,7 @@ interface EndPoints {
 
 
     @POST("/smartcity/api/problema_delete/{id}")
-    fun apagar(@Path("id") id: String?): Call<OutputPost>
-/*
-    @FormUrlEncoded
-    @POST("post")
-    fun postTest(@Field("title") first: String?): Call<OutputPost>
-
-
-     @FormUrlEncoded
-    @POST("/login")
-    fun login(@Field("username") username: String,@Field("password") password: String): Call<OutputPost>
-
-*/
+    fun apagar(@Path("id") id: String?): Call<Notas>
 
 
 }

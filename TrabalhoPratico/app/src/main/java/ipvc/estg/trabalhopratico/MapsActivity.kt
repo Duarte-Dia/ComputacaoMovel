@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ipvc.estg.trabalhopratico.api.EndPoints
@@ -36,26 +38,31 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
 
+
+
+
+
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     private lateinit var shared_preferences: SharedPreferences
+    private val newEditMapNoteActivityRequestCode = 1
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         shared_preferences = getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
-        locationCallback= object : LocationCallback(){
+        locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult?) {
                 super.onLocationResult(p0)
                 if (p0 != null) {
-                    lastLocation =p0.lastLocation
-                    var loc = LatLng(lastLocation.latitude,lastLocation.longitude)
-                  //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,15.0f))
-                    findViewById<TextView>(R.id.textViewMapsCoordenadas).setText("Lat: "+ loc.latitude + " - Long: "+ loc.longitude)
+                    lastLocation = p0.lastLocation
+                    var loc = LatLng(lastLocation.latitude, lastLocation.longitude)
+                    //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,15.0f))
+                    findViewById<TextView>(R.id.textViewMapsCoordenadas).setText("Lat: " + loc.latitude + " - Long: " + loc.longitude)
                 }
             }
         }
-
-
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -64,32 +71,40 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
 
-
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getNotas()
         var position: LatLng
         val id_user = shared_preferences.getInt("id", 0)
         call.enqueue(object : Callback<List<Notas>> {
-            override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>){
-                if (response.isSuccessful){
-                    Toast.makeText(this@MapsActivity,"Loading notes", Toast.LENGTH_LONG).show()
+            override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@MapsActivity, "Loading notes", Toast.LENGTH_LONG).show()
                     notas = response.body()!!
-                    for (nota in notas){
+                    for (nota in notas) {
                         position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
-                       if(nota.id_utilizador == id_user){
-                            mMap.addMarker(MarkerOptions().position(position).title(nota.id.toString()).snippet(nota.title + "-" +"lat "+ nota.latitude + " long "+ nota.longitude))
+                        if (nota.id_utilizador == id_user) {
+                            mMap.addMarker(
+                                MarkerOptions().position(position).title(nota.id.toString())
+                                    .snippet(nota.title + "-" + "lat " + nota.latitude + " long " + nota.longitude)
+                            )
                                 .setIcon(
                                     BitmapDescriptorFactory.defaultMarker(
-                                        BitmapDescriptorFactory.HUE_GREEN))
-                      }else{
-                            mMap.addMarker(MarkerOptions().position(position).title(nota.id.toString()).snippet(nota.title + "-" + nota.description))
+                                        BitmapDescriptorFactory.HUE_BLUE
+                                    )
+                                )
+                        } else {
+                            mMap.addMarker(
+                                MarkerOptions().position(position).title(nota.id.toString())
+                                    .snippet(nota.title + "-" + nota.description)
+                            )
                         }
 
                     }
                 }
             }
-            override fun onFailure(call: Call<List<Notas>>, t: Throwable){
-                Toast.makeText(this@MapsActivity,"${t.message}", Toast.LENGTH_LONG).show()
+
+            override fun onFailure(call: Call<List<Notas>>, t: Throwable) {
+                Toast.makeText(this@MapsActivity, "${t.message}", Toast.LENGTH_LONG).show()
             }
         })
 
@@ -101,11 +116,136 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
 
+        // para filtar pode se so apagar todos os filtros do mapa e adicionar so os que estao a X distancia
+        val buttonFiltro = findViewById<Button>(R.id.buttonFiltrar)
+        buttonFiltro.setOnClickListener {
+
+            mMap.clear()
+            val request = ServiceBuilder.buildService(EndPoints::class.java)
+            val call = request.getNotas()
+            var position: LatLng
+            val id_user = shared_preferences.getInt("id", 0)
+            call.enqueue(object : Callback<List<Notas>> {
+                override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@MapsActivity, "Loading notes", Toast.LENGTH_LONG).show()
+                        notas = response.body()!!
+                        for (nota in notas) {
+                            position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
+                            if (calculateDistance( position.latitude, position.longitude, lastLocation.latitude, lastLocation.longitude)<1000 )
+                             {
+                                if (nota.id_utilizador == id_user) {
+                                    mMap.addMarker(
+                                        MarkerOptions().position(position).title(nota.id.toString())
+                                            .snippet(nota.title + "-" + "lat " + nota.latitude + " long " + nota.longitude)
+                                    )
+                                        .setIcon(
+                                            BitmapDescriptorFactory.defaultMarker(
+                                                BitmapDescriptorFactory.HUE_BLUE
+                                            )
+                                        )
+                                } else {
+                                    mMap.addMarker(
+                                        MarkerOptions().position(position).title(nota.id.toString())
+                                            .snippet(nota.title + "-" + nota.description)
+                                    )
+                                }
+
+                            }
+
+                        }
 
 
+                    }
+                }
 
+                override fun onFailure(call: Call<List<Notas>>, t: Throwable) {
+                    Toast.makeText(this@MapsActivity, "${t.message}", Toast.LENGTH_LONG).show()
+                }
+            })
 
+        }
+// para dar reset e limpar o mMap e correr a primeira call de novo
+        val buttonReset = findViewById<Button>(R.id.buttonReset)
+        buttonReset.setOnClickListener {
+
+            mMap.clear()
+            val request = ServiceBuilder.buildService(EndPoints::class.java)
+            val call = request.getNotas()
+            var position: LatLng
+            val id_user = shared_preferences.getInt("id", 0)
+            call.enqueue(object : Callback<List<Notas>> {
+                override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@MapsActivity, "Loading notes", Toast.LENGTH_LONG).show()
+                        notas = response.body()!!
+                        for (nota in notas) {
+                            position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
+                                if (nota.id_utilizador == id_user) {
+                                    mMap.addMarker(
+                                        MarkerOptions().position(position).title(nota.id.toString())
+                                            .snippet(nota.title + "-" + "lat " + nota.latitude + " long " + nota.longitude)
+                                    )
+                                        .setIcon(
+                                            BitmapDescriptorFactory.defaultMarker(
+                                                BitmapDescriptorFactory.HUE_BLUE
+                                            )
+                                        )
+                                } else {
+                                    mMap.addMarker(
+                                        MarkerOptions().position(position).title(nota.id.toString())
+                                            .snippet(nota.title + "-" + nota.description)
+                                    )
+                                }
+                        }
+
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Notas>>, t: Throwable) {
+                    Toast.makeText(this@MapsActivity, "${t.message}", Toast.LENGTH_LONG).show()
+                }
+            })
+
+        }
         createLocationRequest()
+    }
+
+
+
+
+
+    override fun onInfoWindowClick(p0: Marker?) {
+        val request = ServiceBuilder.buildService(EndPoints::class.java)
+        val call :Call <List<Notas>> = request.getNotasById(p0!!.id)
+        val id_user = shared_preferences.getInt("id", 0)
+
+        call.enqueue(object : Callback<List<Notas>> {
+            override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>) {
+                if(response.isSuccessful){
+                    notas = response.body()!!
+                    for(nota in notas){
+                        if(nota.id_utilizador == id_user){
+                            Toast.makeText(this@MapsActivity, nota.description, Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@MapsActivity,EditMapNoteActivity::class.java)
+                            intent.putExtra("ID", nota.id.toString())
+                            intent.putExtra("TITLE", nota.title)
+                            intent.putExtra("DESC", nota.description)
+                            intent.putExtra("LAT", nota.latitude)
+                            intent.putExtra("LOT", nota.longitude)
+                            intent.putExtra("ID_USER", nota.id_utilizador.toString())
+                            startActivity(intent, newEditMapNoteActivityRequestCode)
+                        }else{
+                            Toast.makeText(this@MapsActivity,R.string.Edit_error, Toast.LENGTH_LONG).show()
+                        }
+
+                    }
+                }
+            }
+            override fun onFailure(call: Call<List<Notas>>, t: Throwable) {
+                Toast.makeText(this@MapsActivity,"${t.message}", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     /**
@@ -163,7 +303,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
-// funcao para resumir o check periodico da localizacao
+
+    // funcao para resumir o check periodico da localizacao
     private fun startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -177,7 +318,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
             return
         }
-        fusedLocationClient.requestLocationUpdates(locationRequest,locationCallback,null)
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 
     // esta funcao e para ele estar periodicamente a atualizar a localizacao do utilizador
@@ -187,7 +328,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         locationRequest.interval = 10000
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
-// on p[ause e on resume servem para parar e resumir respetivamente o check da localizacao de modo a poupar recursos do telemovel
+
+    // on p[ause e on resume servem para parar e resumir respetivamente o check da localizacao de modo a poupar recursos do telemovel
     override fun onPause() {
         super.onPause()
         fusedLocationClient.removeLocationUpdates(locationCallback)
@@ -202,9 +344,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun calculateDistance(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Float {
 
         val results = FloatArray(1);
-        Location.distanceBetween(lat1,lng1,lat2,lng2,results)
+        Location.distanceBetween(lat1, lng1, lat2, lng2, results)
 
         return results[0];
     }
+
+
+
+
+
 
 }

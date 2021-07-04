@@ -2,7 +2,6 @@ package ipvc.estg.trabalhopratico.api
 
 data class Notas(
     val id: Int,
-
     val title: String,
     val description: String,
     val latitude: Float,

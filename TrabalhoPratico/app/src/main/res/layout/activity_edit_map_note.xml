@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectedNoteActivity">
+    tools:context="EditMapNoteActivity">
 
 
     <EditText
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/min_height"
         android:layout_centerHorizontal="true"
-       android:textSize="@dimen/big_padding"
+        android:textSize="@dimen/big_padding"
         android:text="TextView" />
 
 
@@ -32,7 +32,7 @@
         android:id="@+id/buttonDeleteNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-      android:layout_marginLeft="230dp"
+        android:layout_marginLeft="230dp"
         android:layout_marginTop="80dp"
         android:layout_below="@id/editTextViewSelectedNoteDescription"
         android:text="@string/Delete_note" />
