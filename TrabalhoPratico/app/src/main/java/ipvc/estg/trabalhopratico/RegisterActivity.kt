@@ -1,8 +1,6 @@
 package ipvc.estg.trabalhopratico
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -46,7 +44,7 @@ class RegisterActivity : AppCompatActivity() {
             val username = editUsernameView.text.toString()
             val password = editPasswordView.text.toString()
             val email = editEmailView.text.toString()
-            val call = request.registar(username = username, password = password,email=email )
+            val call = request.registarUser(username = username, password = password,email=email )
             call.enqueue(object : Callback<OutputLogin> {
                 override fun onResponse(call: Call<OutputLogin>, response: Response<OutputLogin>) {
                     if (response.isSuccessful) {

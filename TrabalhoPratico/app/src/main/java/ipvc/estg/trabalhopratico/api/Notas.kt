@@ -2,9 +2,12 @@ package ipvc.estg.trabalhopratico.api
 
 data class Notas(
     val id: Int,
-    val latitude: Float,
-    val longitude: Float,
+
     val title: String,
     val description: String,
-    val utilizador_id: Int
+    val latitude: Float,
+    val longitude: Float,
+    val id_utilizador: Int,
+    // esta var e para receber mensagens do WS de modo a ler erros
+    val MSG: String
 )

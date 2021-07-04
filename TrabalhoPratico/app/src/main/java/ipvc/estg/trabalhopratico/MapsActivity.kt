@@ -1,6 +1,7 @@
 package ipvc.estg.trabalhopratico
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ipvc.estg.trabalhopratico.api.EndPoints
 import ipvc.estg.trabalhopratico.api.Notas
 import ipvc.estg.trabalhopratico.api.ServiceBuilder
@@ -74,7 +76,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     notas = response.body()!!
                     for (nota in notas){
                         position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
-                       if(nota.utilizador_id == id_user){
+                       if(nota.id_utilizador == id_user){
                             mMap.addMarker(MarkerOptions().position(position).title(nota.id.toString()).snippet(nota.title + "-" +"lat "+ nota.latitude + " long "+ nota.longitude))
                                 .setIcon(
                                     BitmapDescriptorFactory.defaultMarker(
@@ -92,8 +94,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         })
 
 
+        val fab = findViewById<FloatingActionButton>(R.id.buttonReportar)
+        fab.setOnClickListener {
+            val intent = Intent(this, ReportNoteActivity::class.java)
 
-
+            startActivity(intent)
+        }
 
 
 
