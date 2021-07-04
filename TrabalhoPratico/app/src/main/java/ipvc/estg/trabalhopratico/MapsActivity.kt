@@ -1,5 +1,6 @@
 package ipvc.estg.trabalhopratico
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -25,6 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ipvc.estg.trabalhopratico.api.EndPoints
 import ipvc.estg.trabalhopratico.api.Notas
 import ipvc.estg.trabalhopratico.api.ServiceBuilder
+import ipvc.estg.trabalhopratico.entities.Notes
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,7 +46,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     private lateinit var shared_preferences: SharedPreferences
-    private val newEditMapNoteActivityRequestCode = 1
+    private val editMapNoteActivityRequestCode = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -232,9 +234,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             intent.putExtra("TITLE", nota.title)
                             intent.putExtra("DESC", nota.description)
                             intent.putExtra("LAT", nota.latitude)
-                            intent.putExtra("LOT", nota.longitude)
-                            intent.putExtra("ID_USER", nota.id_utilizador.toString())
-                            startActivity(intent, newEditMapNoteActivityRequestCode)
+                            intent.putExtra("LON", nota.longitude)
+                            intent.putExtra("ID_USER", nota.id_utilizador)
+                            startActivityForResult(intent, editMapNoteActivityRequestCode)
                         }else{
                             Toast.makeText(this@MapsActivity,R.string.Edit_error, Toast.LENGTH_LONG).show()
                         }
@@ -246,6 +248,50 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Toast.makeText(this@MapsActivity,"${t.message}", Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+ if (requestCode == editMapNoteActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
+// caso nao detete qualquer texto devolve um toast a dizer que estava vazia
+            Toast.makeText(
+                applicationContext,
+                R.string.empty_not_saved,
+                Toast.LENGTH_LONG
+            ).show()
+            // aqui deteta se o reply vem da atividade de editar/ apagar
+        } else if (requestCode == editMapNoteActivityRequestCode && resultCode == Activity.RESULT_OK) {
+            // primeiro verifica se e para a pagar a nota
+            if (data?.getStringExtra("delete") == "1") {
+                var title = data.getStringExtra("title")
+                if (title != null) {
+
+
+                    // inserir aqui as calls para apagar e editar 
+
+                }
+                Toast.makeText(this, "Note $title has been deleted ", Toast.LENGTH_SHORT).show()
+                // caso contrario vai verificar o que e para editar
+            } else {
+                if (data?.getStringExtra("edit") == "1") {
+                    var idN = data.getIntExtra("id", 0)
+
+                    var t = data.getStringExtra("title")
+                    var d = data.getStringExtra("description")
+                    if (t != null && d != null && idN != 0) {
+
+                        // inserir aqui as calls para apagar e editar
+
+
+                        Toast.makeText(this, "$idN has been edited. ", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+        }
+
     }
 
     /**

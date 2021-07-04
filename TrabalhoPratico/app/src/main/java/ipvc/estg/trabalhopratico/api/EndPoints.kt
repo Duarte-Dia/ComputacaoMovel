@@ -16,7 +16,7 @@ interface EndPoints {
     fun getNotas(): Call<List<Notas>>
 
     @GET("/myslim/api/notas/{id}")
-    fun getNotasById(@Path("id") id: Int): Call<List<Notas>>
+    fun getNotasById(@Path("id") id: String): Call<List<Notas>>
 
     @FormUrlEncoded
     @POST("/myslim/api/users_login")
