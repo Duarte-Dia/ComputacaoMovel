@@ -10,7 +10,7 @@
 
 
     <EditText
-        android:id="@+id/editTextViewSelectedNoteTittleLandscape"
+        android:id="@+id/editTextViewSelectedNoteTittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/min_height"
@@ -20,7 +20,7 @@
 
 
     <EditText
-        android:id="@+id/editTextViewSelectedNoteDescriptionLandscape"
+        android:id="@+id/editTextViewSelectedNoteDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -31,12 +31,12 @@
 
 
     <Button
-        android:id="@+id/buttonDeleteNoteLandscape"
+        android:id="@+id/buttonDeleteNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="430dp"
         android:layout_marginTop="80dp"
-        android:layout_below="@id/editTextViewSelectedNoteDescriptionLandscape"
+        android:layout_below="@id/editTextViewSelectedNoteDescription"
         android:text="@string/Delete_note" />
 
     <Button
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="230dp"
         android:layout_marginTop="80dp"
-        android:layout_below="@id/editTextViewSelectedNoteDescriptionLandscape"
+        android:layout_below="@id/editTextViewSelectedNoteDescription"
         android:text="@string/edit_note" />
 
 

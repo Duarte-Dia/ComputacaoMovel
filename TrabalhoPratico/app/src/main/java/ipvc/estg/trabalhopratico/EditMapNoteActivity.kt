@@ -83,47 +83,7 @@ class EditMapNoteActivity : AppCompatActivity() {
 
         }
 
-        val buttonEditLandscape = findViewById<Button>(R.id.buttonEditNoteLandscape)
-        buttonEditLandscape.setOnClickListener {
-            if (TextUtils.isEmpty(TitleView.text) || TextUtils.isEmpty(DescriptionView.text)) {
-                Toast.makeText(this@EditMapNoteActivity, R.string.login_Error, Toast.LENGTH_LONG).show()
-            } // caso tenha texto ira passsar para o request ao servidor
-            else {
-                val request = ServiceBuilder.buildService(EndPoints::class.java)
 
-                val title = TitleView.text.toString()
-                val description = DescriptionView.text.toString()
-                val id_utilizador = shared_preferences.getInt("id", 0)
-
-                val call = request.updateNota(
-                    id = id,
-                    id_utilizador = id_utilizador,
-                    title = title,
-                    description = description
-
-                )
-
-                call.enqueue(object : Callback<Notas> {
-                    override fun onResponse(call: Call<Notas>, response: Response<Notas>) {
-                        if (response.isSuccessful) {
-                            val c: Notas = response.body()!!
-                            Toast.makeText(this@EditMapNoteActivity, c.MSG, Toast.LENGTH_LONG).show()
-                            val intent = Intent(this@EditMapNoteActivity, MapsActivity::class.java)
-                            setResult(Activity.RESULT_OK, intent)
-                            finish()
-
-                        }
-                    }
-
-                    override fun onFailure(call: Call<Notas>, t: Throwable) {
-                        Toast.makeText(this@EditMapNoteActivity, "${t.message}", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                })
-
-            }
-
-        }
 
         val buttonDelete = findViewById<Button>(R.id.buttonDeleteNote)
         buttonDelete.setOnClickListener {
@@ -150,30 +110,7 @@ class EditMapNoteActivity : AppCompatActivity() {
 
         }
 
-        val buttonDeleteLandscape = findViewById<Button>(R.id.buttonDeleteNote)
-        buttonDeleteLandscape.setOnClickListener {
-            val request = ServiceBuilder.buildService(EndPoints::class.java)
-            val call = request.deleteNota(id=id.toString())
 
-            call.enqueue(object : Callback<OutputDelete> {
-                override fun onResponse(call: Call<OutputDelete>, response: Response<OutputDelete>) {
-                    if (response.isSuccessful) {
-                        val c: OutputDelete = response.body()!!
-                        Toast.makeText(this@EditMapNoteActivity, c.MSG, Toast.LENGTH_LONG).show()
-                        val intent = Intent(this@EditMapNoteActivity, MapsActivity::class.java)
-                        setResult(Activity.RESULT_OK, intent)
-                        finish()
-
-                    }
-                }
-
-                override fun onFailure(call: Call<OutputDelete>, t: Throwable) {
-                    Toast.makeText(this@EditMapNoteActivity, "${t.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
-
-        }
     }
 }
 

@@ -8,6 +8,7 @@
         android:id="@+id/textView_Recycler_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/purple_200"
         style="@style/word_title"
        />
 </LinearLayout>

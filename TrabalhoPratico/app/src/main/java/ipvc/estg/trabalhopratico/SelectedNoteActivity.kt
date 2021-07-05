@@ -12,8 +12,6 @@ class SelectedNoteActivity : AppCompatActivity() {
     private lateinit var TitleView: TextView
     private lateinit var DescriptionView: TextView
 
-    private lateinit var TitleViewLandscape: TextView
-    private lateinit var DescriptionViewLandscape: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +19,7 @@ class SelectedNoteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_selected_note)
         TitleView = findViewById(R.id.editTextViewSelectedNoteTittle)
         DescriptionView = findViewById(R.id.editTextViewSelectedNoteDescription)
-
-        TitleViewLandscape = findViewById(R.id.editTextViewSelectedNoteTittleLandscape)
-        DescriptionViewLandscape = findViewById(R.id.editTextViewSelectedNoteDescriptionLandscape)
+        
 
         var id = intent.getIntExtra("id", 0)
         var ogTitle = intent.getStringExtra("title")
@@ -62,32 +58,6 @@ class SelectedNoteActivity : AppCompatActivity() {
             finish()
         }
 
-        val buttonEditLandscape = findViewById<Button>(R.id.buttonEditNoteLandscape)
-        buttonEditLandscape.setOnClickListener {
-            val title = TitleView.text.toString()
-            val d = DescriptionView.text.toString()
-            val replyIntent = Intent()
-            replyIntent.putExtra("delete", "0")
 
-            replyIntent.putExtra("edit", "1")
-            replyIntent.putExtra("id", id)
-            replyIntent.putExtra("title", title)
-            replyIntent.putExtra("description", d)
-            setResult(Activity.RESULT_OK, replyIntent)
-
-
-            finish()
-            // Toast.makeText( this,"$ogTitle has been click. ", Toast.LENGTH_SHORT).show()
-        }
-
-        val buttonDeleteLandscape = findViewById<Button>(R.id.buttonDeleteNoteLandscape)
-        buttonDeleteLandscape.setOnClickListener {
-            val replyIntent = Intent()
-            replyIntent.putExtra("title", ogTitle)
-            replyIntent.putExtra("delete", "1")
-            setResult(Activity.RESULT_OK, replyIntent)
-
-            finish()
-        }
     }
 }
