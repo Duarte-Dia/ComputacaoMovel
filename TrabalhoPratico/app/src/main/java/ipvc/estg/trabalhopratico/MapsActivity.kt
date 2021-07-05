@@ -31,7 +31,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+//  GoogleMap.OnInfoWindowClickListener necessario para poder alterar o info da janela
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private lateinit var mMap: GoogleMap
     private lateinit var lastLocation: Location
@@ -39,9 +40,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var notas: List<Notas>
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
-
-
-
 
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -134,8 +132,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         notas = response.body()!!
                         for (nota in notas) {
                             position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
-                            if (calculateDistance( position.latitude, position.longitude, lastLocation.latitude, lastLocation.longitude)<1000 )
-                             {
+                            if (calculateDistance(
+                                    position.latitude,
+                                    position.longitude,
+                                    lastLocation.latitude,
+                                    lastLocation.longitude
+                                ) < 1000
+                            ) {
                                 if (nota.id_utilizador == id_user) {
                                     mMap.addMarker(
                                         MarkerOptions().position(position).title(nota.id.toString())
@@ -167,9 +170,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             })
 
         }
-// para dar reset e limpar o mMap e correr a primeira call de novo
-        val buttonReset = findViewById<Button>(R.id.buttonReset)
-        buttonReset.setOnClickListener {
+
+        val buttonFiltroUser = findViewById<Button>(R.id.buttonFiltrarUser)
+        buttonFiltroUser.setOnClickListener {
 
             mMap.clear()
             val request = ServiceBuilder.buildService(EndPoints::class.java)
@@ -183,23 +186,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         notas = response.body()!!
                         for (nota in notas) {
                             position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
-                                if (nota.id_utilizador == id_user) {
-                                    mMap.addMarker(
-                                        MarkerOptions().position(position).title(nota.id.toString())
-                                            .snippet(nota.title + "-" + "lat " + nota.latitude + " long " + nota.longitude)
-                                    )
-                                        .setIcon(
-                                            BitmapDescriptorFactory.defaultMarker(
-                                                BitmapDescriptorFactory.HUE_BLUE
-                                            )
-                                        )
-                                } else {
-                                    mMap.addMarker(
-                                        MarkerOptions().position(position).title(nota.id.toString())
-                                            .snippet(nota.title + "-" + nota.description)
-                                    )
-                                }
+
+                            if (nota.id_utilizador == id_user) {
+                                mMap.addMarker(
+                                    MarkerOptions().position(position).title(nota.id.toString())
+                                        .snippet(nota.title + "-" + "lat " + nota.latitude + " long " + nota.longitude)
+                                ).setIcon( BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_BLUE ))
+                            }
+
                         }
+
 
                     }
                 }
@@ -210,51 +206,63 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             })
 
         }
+
+
+// para dar reset e limpar o mMap e correr a primeira call de novo
+        val buttonReset = findViewById<Button>(R.id.buttonReset)
+        buttonReset.setOnClickListener {
+            resetMap()
+        }
         createLocationRequest()
+
     }
-
-
-
 
 
     override fun onInfoWindowClick(p0: Marker?) {
         val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call :Call <List<Notas>> = request.getNotasById(p0!!.id)
+        val call: Call<List<Notas>> = request.getNotasById(p0!!.title)
         val id_user = shared_preferences.getInt("id", 0)
-
         call.enqueue(object : Callback<List<Notas>> {
             override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     notas = response.body()!!
-                    for(nota in notas){
-                        if(nota.id_utilizador == id_user){
-                            Toast.makeText(this@MapsActivity, nota.description, Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@MapsActivity,EditMapNoteActivity::class.java)
+                    for (nota in notas) {
+                        if (nota.id_utilizador == id_user) {
+                            Toast.makeText(this@MapsActivity, nota.id.toString(), Toast.LENGTH_SHORT)
+                                .show()
+                            val intent = Intent(this@MapsActivity, EditMapNoteActivity::class.java)
                             intent.putExtra("ID", nota.id.toString())
                             intent.putExtra("TITLE", nota.title)
                             intent.putExtra("DESC", nota.description)
-                            intent.putExtra("LAT", nota.latitude)
+                            intent.putExtra("LAN", nota.latitude)
                             intent.putExtra("LON", nota.longitude)
                             intent.putExtra("ID_USER", nota.id_utilizador)
                             startActivityForResult(intent, editMapNoteActivityRequestCode)
-                        }else{
-                            Toast.makeText(this@MapsActivity,R.string.Edit_error, Toast.LENGTH_LONG).show()
+                        } else {
+                           // Toast.makeText( this@MapsActivity,   R.string.Edit_error, Toast.LENGTH_LONG ).show()
+                            Toast.makeText(
+                                this@MapsActivity,
+                                " id de utilizador da nota ${nota.id_utilizador}",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
 
                     }
                 }
             }
+
             override fun onFailure(call: Call<List<Notas>>, t: Throwable) {
-                Toast.makeText(this@MapsActivity,"${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MapsActivity, "${t.message}", Toast.LENGTH_LONG).show()
             }
         })
-    }
 
+
+    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
- if (requestCode == editMapNoteActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
+        if (requestCode == editMapNoteActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
 // caso nao detete qualquer texto devolve um toast a dizer que estava vazia
             Toast.makeText(
                 applicationContext,
@@ -263,32 +271,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             ).show()
             // aqui deteta se o reply vem da atividade de editar/ apagar
         } else if (requestCode == editMapNoteActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            // primeiro verifica se e para a pagar a nota
-            if (data?.getStringExtra("delete") == "1") {
-                var title = data.getStringExtra("title")
-                if (title != null) {
-
-
-                    // inserir aqui as calls para apagar e editar 
-
-                }
-                Toast.makeText(this, "Note $title has been deleted ", Toast.LENGTH_SHORT).show()
-                // caso contrario vai verificar o que e para editar
-            } else {
-                if (data?.getStringExtra("edit") == "1") {
-                    var idN = data.getIntExtra("id", 0)
-
-                    var t = data.getStringExtra("title")
-                    var d = data.getStringExtra("description")
-                    if (t != null && d != null && idN != 0) {
-
-                        // inserir aqui as calls para apagar e editar
-
-
-                        Toast.makeText(this, "$idN has been edited. ", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+            resetMap()
 
         }
 
@@ -314,6 +297,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         // ------------------
         // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+// NECESSARIO PARA PORDER FAZER OVERRIDE DE MODO A ESCOLHER AS NOTAS
+        mMap.setOnInfoWindowClickListener(this)
         setUpMap()
     }
 
@@ -341,14 +326,61 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 //3
                 if (location != null) {
                     lastLocation = location
-                    Toast.makeText(this@MapsActivity, lastLocation.toString(), Toast.LENGTH_SHORT)
-                        .show()
+
                     val currentLatLng = LatLng(location.latitude, location.longitude)
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
                 }
             }
         }
     }
+
+    private fun resetMap() {
+
+        mMap.clear()
+        val request = ServiceBuilder.buildService(EndPoints::class.java)
+        val call = request.getNotas()
+
+
+        var position: LatLng
+        val id_user = shared_preferences.getInt("id", 0)
+
+
+        call.enqueue(object : Callback<List<Notas>> {
+            override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@MapsActivity, "Loading notes", Toast.LENGTH_LONG).show()
+                    notas = response.body()!!
+                    for (nota in notas) {
+                        position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
+                        if (nota.id_utilizador == id_user) {
+                            mMap.addMarker(
+                                MarkerOptions().position(position).title(nota.id.toString())
+                                    .snippet(nota.title + "-" + "lat " + nota.latitude + " long " + nota.longitude)
+                            )
+                                .setIcon(
+                                    BitmapDescriptorFactory.defaultMarker(
+                                        BitmapDescriptorFactory.HUE_BLUE
+                                    )
+                                )
+                        } else {
+                            mMap.addMarker(
+                                MarkerOptions().position(position).title(nota.id.toString())
+                                    .snippet(nota.title + "-" + nota.description)
+                            )
+                        }
+                    }
+
+                }
+            }
+
+            override fun onFailure(call: Call<List<Notas>>, t: Throwable) {
+                Toast.makeText(this@MapsActivity, "${t.message}", Toast.LENGTH_LONG).show()
+            }
+        })
+
+
+    }
+
 
     // funcao para resumir o check periodico da localizacao
     private fun startLocationUpdates() {
@@ -394,10 +426,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         return results[0];
     }
-
-
-
-
 
 
 }

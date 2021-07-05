@@ -1,16 +1,27 @@
 package ipvc.estg.trabalhopratico
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import ipvc.estg.trabalhopratico.api.EndPoints
+import ipvc.estg.trabalhopratico.api.Notas
+import ipvc.estg.trabalhopratico.api.OutputDelete
+import ipvc.estg.trabalhopratico.api.ServiceBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class EditMapNoteActivity : AppCompatActivity() {
     private lateinit var TitleView: TextView
     private lateinit var DescriptionView: TextView
-
+    private lateinit var shared_preferences: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,8 +29,8 @@ class EditMapNoteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_map_note)
         TitleView = findViewById(R.id.editTextViewSelectedNoteTittle)
         DescriptionView = findViewById(R.id.editTextViewSelectedNoteDescription)
-
-        var id = intent.getIntExtra("ID", 0)
+        shared_preferences = getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
+        var id = intent.getStringExtra("ID")
         var ogTitle = intent.getStringExtra("TITLE")
         var ogDesc = intent.getStringExtra("DESC")
         var lat:Float = intent.getFloatExtra("LAT",0f)
@@ -32,34 +43,69 @@ class EditMapNoteActivity : AppCompatActivity() {
 
         val buttonEdit = findViewById<Button>(R.id.buttonEditNote)
         buttonEdit.setOnClickListener {
-            val title = TitleView.text.toString()
-            val d = DescriptionView.text.toString()
-            val replyIntent = Intent()
-            replyIntent.putExtra("delete", "0")
+            if (TextUtils.isEmpty(TitleView.text) || TextUtils.isEmpty(DescriptionView.text)) {
+                Toast.makeText(this@EditMapNoteActivity, R.string.login_Error, Toast.LENGTH_LONG).show()
+            } // caso tenha texto ira passsar para o request ao servidor
+            else {
+                val request = ServiceBuilder.buildService(EndPoints::class.java)
 
-            replyIntent.putExtra("edit", "1")
-            replyIntent.putExtra("ID", id)
-            replyIntent.putExtra("TITLE", title)
-            replyIntent.putExtra("DESC", d)
-            replyIntent.putExtra("Lat", lat)
-            replyIntent.putExtra("LONG", lon)
-            replyIntent.putExtra("ID_USER", id_user)
-            setResult(Activity.RESULT_OK, replyIntent)
+                val title = TitleView.text.toString()
+                val description = DescriptionView.text.toString()
+                val id_utilizador = shared_preferences.getInt("id", 0)
 
+                val call = request.updateNota(
+                    id = id,
+                    id_utilizador = id_utilizador,
+                    title = title,
+                    description = description
 
+                )
 
-            finish()
-            // Toast.makeText( this,"$ogTitle has been click. ", Toast.LENGTH_SHORT).show()
+                call.enqueue(object : Callback<Notas> {
+                    override fun onResponse(call: Call<Notas>, response: Response<Notas>) {
+                        if (response.isSuccessful) {
+                            val c: Notas = response.body()!!
+                            Toast.makeText(this@EditMapNoteActivity, c.MSG, Toast.LENGTH_LONG).show()
+                            val intent = Intent(this@EditMapNoteActivity, MapsActivity::class.java)
+                            setResult(Activity.RESULT_OK, intent)
+                            finish()
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Notas>, t: Throwable) {
+                        Toast.makeText(this@EditMapNoteActivity, "${t.message}", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                })
+
+            }
+
         }
 
         val buttonDelete = findViewById<Button>(R.id.buttonDeleteNote)
         buttonDelete.setOnClickListener {
-            val replyIntent = Intent()
-            replyIntent.putExtra("title", ogTitle)
-            replyIntent.putExtra("delete", "1")
-            setResult(Activity.RESULT_OK, replyIntent)
+            val request = ServiceBuilder.buildService(EndPoints::class.java)
+            val call = request.deleteNota(id=id.toString())
 
-            finish()
+            call.enqueue(object : Callback<OutputDelete> {
+                override fun onResponse(call: Call<OutputDelete>, response: Response<OutputDelete>) {
+                    if (response.isSuccessful) {
+                        val c: OutputDelete = response.body()!!
+                        Toast.makeText(this@EditMapNoteActivity, c.MSG, Toast.LENGTH_LONG).show()
+                        val intent = Intent(this@EditMapNoteActivity, MapsActivity::class.java)
+                        setResult(Activity.RESULT_OK, intent)
+                        finish()
+
+                    }
+                }
+
+                override fun onFailure(call: Call<OutputDelete>, t: Throwable) {
+                    Toast.makeText(this@EditMapNoteActivity, "${t.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            })
+
+        }
         }
     }
-}

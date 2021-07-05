@@ -38,9 +38,17 @@ interface EndPoints {
                @Field("longitude") longitude: Float?,
                @Field("id_utilizador") id_utilizador: Int?): Call<Notas>
 
+    @FormUrlEncoded
+    @POST("/myslim/api/updateNota/{id}")
+    fun updateNota(
+        @Path("id") id: String?,
+        @Field("title") title: String?,
+        @Field("description") description: String?,
+        @Field("id_utilizador") id_utilizador: Int?): Call<Notas>
 
-    @POST("/smartcity/api/problema_delete/{id}")
-    fun apagar(@Path("id") id: String?): Call<Notas>
+
+    @POST("/myslim/api/deleteNota/{id}")
+    fun deleteNota(@Path("id") id: String?): Call<OutputDelete>
 
 
 }

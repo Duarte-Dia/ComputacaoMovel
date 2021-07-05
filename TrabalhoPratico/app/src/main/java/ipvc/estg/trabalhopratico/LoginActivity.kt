@@ -48,13 +48,14 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        val buttonRegistar = findViewById<Button>(R.id.button_registar)
-        buttonRegistar.setOnClickListener {
-            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-            startActivity(intent);
 
-        }
 
+    }
+
+    fun registeUser(view:View){
+
+        val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+        startActivity(intent);
     }
 
 // funcao que efetua o login

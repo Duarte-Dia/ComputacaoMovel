@@ -55,6 +55,8 @@
         android:layout_margin="16dp"
         android:layout_alignLeft="@id/button_login"
         android:text="@string/Register"
+        android:onClick="registeUser"
+
         />
 
 

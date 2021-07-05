@@ -43,5 +43,6 @@
     <string name="Edit_error">You cannot edit that note</string>
     <string name="Edit_note">Edit Note</string>
     <string name="Delete_note">Delete Note</string>
+    <string name="MyReports">My Reports</string>
 
 </resources>

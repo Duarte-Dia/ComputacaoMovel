@@ -10,7 +10,7 @@
 
 
     <EditText
-        android:id="@+id/usernameEditText"
+        android:id="@+id/usernameEditTextLandscape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -21,7 +21,7 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/passwordEditText"
+        android:id="@+id/passwordEditTextLandscape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -32,14 +32,14 @@
         android:textSize="18sp" />
 
     <CheckBox
-        android:id="@+id/checkBox_LoggedIn"
+        android:id="@+id/checkBox_LoggedInLandscape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/Loggedin" />
 
     <Button
-        android:id="@+id/button_login"
+        android:id="@+id/button_loginLandscape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -49,11 +49,12 @@
         />
 
     <Button
-        android:id="@+id/button_registar"
+        android:id="@+id/button_registarLandscape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/Register"
+        android:onClick="registeUser"
         />
 
 

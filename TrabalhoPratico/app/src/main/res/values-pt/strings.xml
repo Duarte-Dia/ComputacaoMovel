@@ -27,4 +27,5 @@
     <string name="Edit_error">Não pode editar essa nota</string>
     <string name="Edit_note">Editar Nota</string>
     <string name="Delete_note">Apagar Nota</string>
+    <string name="MyReports">Minhas reportagens</string>
 </resources>

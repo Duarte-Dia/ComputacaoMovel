@@ -6,8 +6,7 @@ data class User(
     val username: String,
     val password: String,
     val email: String
-  //  val adress: Address
+
 )
 
-data class Address( val city: String,
-                    val zipcode: String)
+

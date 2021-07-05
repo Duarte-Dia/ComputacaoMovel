@@ -8,7 +8,7 @@
 
 
     <ImageButton
-        android:id="@+id/buttonNotas"
+        android:id="@+id/buttonNotasLandscape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="200dp"
@@ -17,29 +17,29 @@
         app:srcCompat="@drawable/icon_notas" />
 
     <ImageButton
-        android:id="@+id/buttonDefinitions"
+        android:id="@+id/buttonDefinitionsLandscape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonLogin"
+        android:layout_below="@id/buttonLoginLandscape"
         android:layout_marginTop="70dp"
-        android:layout_toRightOf="@id/buttonNotas"
+        android:layout_toRightOf="@id/buttonNotasLandscape"
         android:onClick="onClickDefinitions"
         app:srcCompat="@drawable/icon_definitions" />
 
     <ImageButton
-        android:id="@+id/buttonLogin"
+        android:id="@+id/buttonLoginLandscape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/buttonNotas"
+        android:layout_toRightOf="@id/buttonNotasLandscape"
         android:onClick="onClickLogin"
         app:srcCompat="@drawable/icon_login" />
 
     <ImageButton
-        android:id="@+id/buttonMap"
+        android:id="@+id/buttonMapLandscape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonNotas"
+        android:layout_below="@id/buttonNotasLandscape"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="70dp"
         android:onClick="onClickMap"
