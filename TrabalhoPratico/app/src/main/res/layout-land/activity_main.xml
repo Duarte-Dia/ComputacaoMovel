@@ -4,54 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+
     tools:context=".MainActivity">
 
 
-    <ImageButton
-        android:id="@+id/buttonNotasLandscape"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/buttonNotas"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="10dp"
         android:onClick="onClickNotas"
-        app:srcCompat="@drawable/icon_notas" />
-
-    <ImageButton
-        android:id="@+id/buttonDefinitionsLandscape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonLoginLandscape"
-        android:layout_marginTop="70dp"
-        android:layout_toRightOf="@id/buttonNotasLandscape"
-        android:onClick="onClickDefinitions"
-        app:srcCompat="@drawable/icon_definitions" />
-
-    <ImageButton
-        android:id="@+id/buttonLoginLandscape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/buttonNotasLandscape"
-        android:onClick="onClickLogin"
-        app:srcCompat="@drawable/icon_login" />
-
-    <ImageButton
-        android:id="@+id/buttonMapLandscape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonNotasLandscape"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="70dp"
-        android:onClick="onClickMap"
-        app:srcCompat="@drawable/icon_map" />
+        android:text="@string/PersonalNotes"
+        />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonDefinitions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_below="@id/buttonMap"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:onClick="onClickDefinitions"
+        android:text="@string/Settings"
+        />
+
+    <Button
+        android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/icon_notas"
-        app:backgroundTint="@color/cardview_shadow_end_color" />
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/buttonDefinitions"
+        android:onClick="onClickLogin"
+        android:padding="20dp"
+        android:text="@string/Logout"
+        />
 
+    <Button
+        android:id="@+id/buttonMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonNotas"
+        android:padding="20dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="10dp"
+        android:onClick="onClickMap"
+        android:text="@string/title_activity_maps"
+        />
 
 
 

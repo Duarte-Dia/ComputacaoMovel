@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/lightgrey"
 
-    tools:context="EditMapNoteActivity">
+    tools:context=".SelectedNoteActivity">
 
 
     <EditText
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/min_height"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/big_padding"
+       android:textSize="@dimen/big_padding"
         android:text="TextView" />
 
 
@@ -34,7 +34,7 @@
         android:id="@+id/buttonDeleteNoteLandscape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="430dp"
+      android:layout_marginLeft="430dp"
         android:layout_marginTop="80dp"
         android:layout_below="@id/editTextViewSelectedNoteDescriptionLandscape"
         android:text="@string/Delete_note" />

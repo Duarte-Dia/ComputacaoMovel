@@ -35,7 +35,7 @@
     <string name="prompt_password" translatable="false">Password</string>
     <string name="welcome">"Welcome !"</string>
     <string name="Register_Success">Registration successful</string>
-    <string name="filter">Filter</string>
+    <string name="filter">Closer</string>
     <string name="reset" translatable="false">Reset</string>
     <string name="PersonalNotes">Personal Notes</string>
     <string name="Settings">Settings</string>

@@ -20,7 +20,7 @@
     <string name="EmptyFields">Campos vazios. por favor encha os com o seu nome de utilizador e password</string>
     <string name="welcome">Bem vindo !</string>
     <string name="Register_Success">Registado com sucesso</string>
-    <string name="filter">Filtro</string>
+    <string name="filter">Perto</string>
     <string name="PersonalNotes">Notas pessoais</string>
     <string name="Settings">Definições</string>
     <string name="Logout">Sair</string>
