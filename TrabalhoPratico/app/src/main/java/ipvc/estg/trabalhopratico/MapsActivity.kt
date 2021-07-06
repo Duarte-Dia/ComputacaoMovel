@@ -358,7 +358,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                                 )
                         } else {
                             mMap.addMarker(
-                                MarkerOptions().position(position).title(nota.title)
+                                MarkerOptions().position(position).title(nota.id.toString())
                                     .snippet(nota.title + "-" + nota.description)
                             )
                         }
