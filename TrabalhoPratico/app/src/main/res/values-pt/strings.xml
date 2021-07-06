@@ -31,4 +31,8 @@
     <string name="edited_note">Nota foi editada</string>
     <string name="Deleted_Note">Nota foi apagada</string>
     <string name="Sucess_Register">Registado com sucesso</string>
+    <string name="Loading_Notes">A carregar todas as notas</string>
+    <string name="Filter_Users">A Mostrar os marcadores do utilizador</string>
+    <string name="Filter">A mostrar os Marcadores mais proximos</string>
+    <string name="No_Changes">Nenhuma altera;ção foi feita</string>
 </resources>

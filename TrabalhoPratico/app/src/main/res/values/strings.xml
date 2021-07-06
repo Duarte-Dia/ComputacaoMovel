@@ -47,5 +47,9 @@
     <string name="edited_note">Note has been edited</string>
     <string name="Deleted_Note">Note has been deleted</string>
     <string name="Sucess_Register">Successefully registered</string>
+    <string name="Loading_Notes">Loading Notes</string>
+    <string name="Filter_Users">Showing only users marks</string>
+    <string name="Filter">Showing closer markers</string>
+    <string name="No_Changes">No changes have been made</string>
 
 </resources>

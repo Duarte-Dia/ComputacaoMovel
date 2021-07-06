@@ -78,14 +78,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
         call.enqueue(object : Callback<List<Notas>> {
             override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@MapsActivity, "Loading notes", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MapsActivity, R.string.Loading_Notes, Toast.LENGTH_LONG).show()
                     notas = response.body()!!
                     for (nota in notas) {
                         position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
                         if (nota.id_utilizador == id_user) {
                             mMap.addMarker(
-                                MarkerOptions().position(position).title(nota.id.toString())
-                                    .snippet(nota.title + "-" + "lat " + nota.latitude + " long " + nota.longitude)
+                                MarkerOptions().position(position).title(nota.title)
+                                    .snippet(nota.title + "-" + nota.description)
                             )
                                 .setIcon(
                                     BitmapDescriptorFactory.defaultMarker(
@@ -94,7 +94,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                                 )
                         } else {
                             mMap.addMarker(
-                                MarkerOptions().position(position).title(nota.id.toString())
+                                MarkerOptions().position(position).title(nota.title)
                                     .snippet(nota.title + "-" + nota.description)
                             )
                         }
@@ -128,7 +128,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
             call.enqueue(object : Callback<List<Notas>> {
                 override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(this@MapsActivity, "Loading notes", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MapsActivity, R.string.Filter, Toast.LENGTH_LONG).show()
                         notas = response.body()!!
                         for (nota in notas) {
                             position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
@@ -141,8 +141,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                             ) {
                                 if (nota.id_utilizador == id_user) {
                                     mMap.addMarker(
-                                        MarkerOptions().position(position).title(nota.id.toString())
-                                            .snippet(nota.title + "-" + "lat " + nota.latitude + " long " + nota.longitude)
+                                        MarkerOptions().position(position).title(nota.title)
+                                            .snippet(nota.title + "-" + nota.description)
                                     )
                                         .setIcon(
                                             BitmapDescriptorFactory.defaultMarker(
@@ -151,7 +151,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                                         )
                                 } else {
                                     mMap.addMarker(
-                                        MarkerOptions().position(position).title(nota.id.toString())
+                                        MarkerOptions().position(position).title(nota.title)
                                             .snippet(nota.title + "-" + nota.description)
                                     )
                                 }
@@ -182,15 +182,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
             call.enqueue(object : Callback<List<Notas>> {
                 override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(this@MapsActivity, "Loading notes", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MapsActivity, R.string.Filter_Users, Toast.LENGTH_LONG).show()
                         notas = response.body()!!
                         for (nota in notas) {
                             position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
 
                             if (nota.id_utilizador == id_user) {
                                 mMap.addMarker(
-                                    MarkerOptions().position(position).title(nota.id.toString())
-                                        .snippet(nota.title + "-" + "lat " + nota.latitude + " long " + nota.longitude)
+                                    MarkerOptions().position(position).title(nota.title)
+                                        .snippet(nota.title + "-" + nota.description)
                                 ).setIcon( BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_BLUE ))
                             }
 
@@ -228,8 +228,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                     notas = response.body()!!
                     for (nota in notas) {
                         if (nota.id_utilizador == id_user) {
-                            Toast.makeText(this@MapsActivity, nota.id.toString(), Toast.LENGTH_SHORT)
-                                .show()
                             val intent = Intent(this@MapsActivity, EditMapNoteActivity::class.java)
                             intent.putExtra("ID", nota.id.toString())
                             intent.putExtra("TITLE", nota.title)
@@ -239,12 +237,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                             intent.putExtra("ID_USER", nota.id_utilizador)
                             startActivityForResult(intent, editMapNoteActivityRequestCode)
                         } else {
-                           // Toast.makeText( this@MapsActivity,   R.string.Edit_error, Toast.LENGTH_LONG ).show()
-                            Toast.makeText(
-                                this@MapsActivity,
-                                " id de utilizador da nota ${nota.id_utilizador}",
-                                Toast.LENGTH_LONG
-                            ).show()
+                           Toast.makeText( this@MapsActivity,   R.string.Edit_error, Toast.LENGTH_LONG ).show()
+
                         }
 
                     }
@@ -266,7 +260,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
 // caso nao detete qualquer texto devolve um toast a dizer que estava vazia
             Toast.makeText(
                 applicationContext,
-                R.string.empty_not_saved,
+                R.string.No_Changes,
                 Toast.LENGTH_LONG
             ).show()
             // aqui deteta se o reply vem da atividade de editar/ apagar
@@ -348,14 +342,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
         call.enqueue(object : Callback<List<Notas>> {
             override fun onResponse(call: Call<List<Notas>>, response: Response<List<Notas>>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@MapsActivity, "Loading notes", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MapsActivity, R.string.Loading_Notes, Toast.LENGTH_LONG).show()
                     notas = response.body()!!
                     for (nota in notas) {
                         position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
                         if (nota.id_utilizador == id_user) {
                             mMap.addMarker(
-                                MarkerOptions().position(position).title(nota.id.toString())
-                                    .snippet(nota.title + "-" + "lat " + nota.latitude + " long " + nota.longitude)
+                                MarkerOptions().position(position).title(nota.title)
+                                    .snippet(nota.title + "-" + nota.description)
                             )
                                 .setIcon(
                                     BitmapDescriptorFactory.defaultMarker(
@@ -364,7 +358,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                                 )
                         } else {
                             mMap.addMarker(
-                                MarkerOptions().position(position).title(nota.id.toString())
+                                MarkerOptions().position(position).title(nota.title)
                                     .snippet(nota.title + "-" + nota.description)
                             )
                         }

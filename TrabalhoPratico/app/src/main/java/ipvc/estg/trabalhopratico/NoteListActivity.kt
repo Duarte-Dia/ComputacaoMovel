@@ -91,7 +91,6 @@ class NoteListActivity : AppCompatActivity(), NotesAdapter.OnItemClickListener {
 
     override fun onItemClick(id: Int?, title: String, description: String) {
         // simples toast para saber se esta a registar o on click corretamente
-        Toast.makeText(this, "$title has been click. ", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, SelectedNoteActivity::class.java)
         intent.putExtra("id", id)
         intent.putExtra("title", title)
