@@ -70,7 +70,7 @@ class NoteListActivity : AppCompatActivity(), NotesAdapter.OnItemClickListener {
                 if (title != null) {
                     noteViewModel.deleteByTittle(title)
                 }
-                Toast.makeText(this, "Note $title has been deleted ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.Deleted_Note, Toast.LENGTH_SHORT).show()
                 // caso contrario vai verificar o que e para editar
             } else {
                 if (data?.getStringExtra("edit") == "1") {
@@ -80,7 +80,7 @@ class NoteListActivity : AppCompatActivity(), NotesAdapter.OnItemClickListener {
                     var d = data.getStringExtra("description")
                     if (t != null && d != null && idN != 0) {
                         noteViewModel.updateNoteFromId(idN, t, d)
-                        Toast.makeText(this, "$idN has been edited. ", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.edited_note, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

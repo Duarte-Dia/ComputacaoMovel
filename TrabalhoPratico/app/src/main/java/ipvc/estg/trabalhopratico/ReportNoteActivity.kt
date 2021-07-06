@@ -54,7 +54,7 @@ class ReportNoteActivity : AppCompatActivity() {
                 super.onLocationResult(p0)
                 if (p0 != null) {
                     lastLocation =p0.lastLocation
-                    var loc = LatLng(lastLocation.latitude,lastLocation.longitude)
+
 
                     latitude= lastLocation.latitude
                     longitude= lastLocation.longitude

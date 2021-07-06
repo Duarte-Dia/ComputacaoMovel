@@ -49,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
         loggedIn = shared_preferences.getBoolean("loggedIn", false)
 
         if (loggedIn) {
+
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent);
             finish()

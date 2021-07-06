@@ -44,5 +44,8 @@
     <string name="Edit_note">Edit Note</string>
     <string name="Delete_note">Delete Note</string>
     <string name="MyReports">My Reports</string>
+    <string name="edited_note">Note has been edited</string>
+    <string name="Deleted_Note">Note has been deleted</string>
+    <string name="Sucess_Register">Successefully registered</string>
 
 </resources>

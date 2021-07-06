@@ -28,4 +28,7 @@
     <string name="Edit_note">Editar Nota</string>
     <string name="Delete_note">Apagar Nota</string>
     <string name="MyReports">Minhas reportagens</string>
+    <string name="edited_note">Nota foi editada</string>
+    <string name="Deleted_Note">Nota foi apagada</string>
+    <string name="Sucess_Register">Registado com sucesso</string>
 </resources>

@@ -50,13 +50,12 @@ class RegisterActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
 
                         val c: OutputLogin = response.body()!!
-                        Toast.makeText(this@RegisterActivity, "enviando ao server", Toast.LENGTH_LONG).show()
                         if (c.status == "false") {
                             Toast.makeText(this@RegisterActivity, c.MSG, Toast.LENGTH_LONG).show()
                         } else {
 
                             val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                            Toast.makeText(this@RegisterActivity, R.string.login_Error, Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@RegisterActivity, R.string.Sucess_Register, Toast.LENGTH_LONG).show()
                             startActivity(intent)
                             finish()
                         }
