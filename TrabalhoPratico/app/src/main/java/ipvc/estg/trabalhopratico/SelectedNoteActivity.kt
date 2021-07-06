@@ -19,7 +19,7 @@ class SelectedNoteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_selected_note)
         TitleView = findViewById(R.id.editTextViewSelectedNoteTittle)
         DescriptionView = findViewById(R.id.editTextViewSelectedNoteDescription)
-        
+
 
         var id = intent.getIntExtra("id", 0)
         var ogTitle = intent.getStringExtra("title")

@@ -84,7 +84,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                         position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
                         if (nota.id_utilizador == id_user) {
                             mMap.addMarker(
-                                MarkerOptions().position(position).title(nota.title)
+                                MarkerOptions().position(position).title(nota.id.toString())
                                     .snippet(nota.title + "-" + nota.description)
                             )
                                 .setIcon(
@@ -94,7 +94,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                                 )
                         } else {
                             mMap.addMarker(
-                                MarkerOptions().position(position).title(nota.title)
+                                MarkerOptions().position(position).title(nota.id.toString())
                                     .snippet(nota.title + "-" + nota.description)
                             )
                         }
@@ -141,7 +141,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                             ) {
                                 if (nota.id_utilizador == id_user) {
                                     mMap.addMarker(
-                                        MarkerOptions().position(position).title(nota.title)
+                                        MarkerOptions().position(position).title(nota.id.toString())
                                             .snippet(nota.title + "-" + nota.description)
                                     )
                                         .setIcon(
@@ -151,7 +151,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                                         )
                                 } else {
                                     mMap.addMarker(
-                                        MarkerOptions().position(position).title(nota.title)
+                                        MarkerOptions().position(position).title(nota.id.toString())
                                             .snippet(nota.title + "-" + nota.description)
                                     )
                                 }
@@ -189,7 +189,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
 
                             if (nota.id_utilizador == id_user) {
                                 mMap.addMarker(
-                                    MarkerOptions().position(position).title(nota.title)
+                                    MarkerOptions().position(position).title(nota.id.toString())
                                         .snippet(nota.title + "-" + nota.description)
                                 ).setIcon( BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_BLUE ))
                             }
@@ -348,7 +348,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                         position = LatLng(nota.latitude.toDouble(), nota.longitude.toDouble())
                         if (nota.id_utilizador == id_user) {
                             mMap.addMarker(
-                                MarkerOptions().position(position).title(nota.title)
+                                MarkerOptions().position(position).title(nota.id.toString())
                                     .snippet(nota.title + "-" + nota.description)
                             )
                                 .setIcon(
